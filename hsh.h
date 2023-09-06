@@ -14,6 +14,7 @@
 /* ===================================================== */
 
 /* List of allowed functinos and assioted headers can be found in README.md */
+#include "./list.h"
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -25,7 +26,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
 /* ===================================================== */
 /* ===================== MACROS ======================== */
 /* ===================================================== */
@@ -42,20 +42,24 @@
 /* ===================== STRUCTS ======================= */
 /* ===================================================== */
 
-/* NOTE: Will be added later - we will need linked list */
-/* I think we should make in a sperate files and included sperately */
+/* NOTE: Will be added later */
+/* TODO: Add an envirmoent struct */
 
 /* ===================================================== */
 /* ===================== PROTOTYPES ==================== */
 /* ===================================================== */
 
-/* STRING functions - string_lib.h */
+/* MAIN hsh functions - hsh.c */
+/* FIXME: this function prototype is not final yet */
+void hsh(void);
+
+/* STRING functions - string_lib.c */
 unsigned int _strlen(char *str);
 char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 
-/* PRINTING functions print_lib.h */
+/* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _puts(char *str);
 
