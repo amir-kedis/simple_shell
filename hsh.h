@@ -58,7 +58,7 @@ unsigned int _strlen(char *str);
 char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
-
+void _strcpy(char *src, char *dest);
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _puts(char *str);

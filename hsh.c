@@ -17,6 +17,6 @@ void hsh(void)
 
 int main(void)
 {
-	hsh();
+	hsh();	
 	return (EXIT_SUCCESS);
 }

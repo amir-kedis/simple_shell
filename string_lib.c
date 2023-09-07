@@ -7,9 +7,15 @@
  */
 unsigned int _strlen(char *str)
 {
-	/* TODO: implement */
-	UNUSED(str);
-	return (0);
+	int i;
+
+	i = 0;
+	while (*str != '\0')
+	{
+		i++;
+		str++;
+	}
+	return (i);
 }
 
 /**
@@ -19,9 +25,17 @@ unsigned int _strlen(char *str)
  */
 char *_strdup(char *str)
 {
-	/* TODO: implement */
-	UNUSED(str);
-	return (NULL);
+	int len, i;
+	char *newstr;
+
+	len = _strlen(str);
+	newstr = malloc(sizeof(char) * len + 1);
+	if (!newstr)
+		return (NULL);
+	for (i = 0; i < len; i++)
+		newstr[i] = str[i];
+	newstr[i] = '\0';
+	return (newstr);
 }
 
 /**
@@ -32,10 +46,16 @@ char *_strdup(char *str)
  */
 char *_strcat(char *dest, char *src)
 {
-	/* TODO: implement */
-	UNUSED(dest);
-	UNUSED(src);
-	return (NULL);
+	int lendest, lensrc;
+	char *destend;
+	lendest = _strlen(dest);
+	lensrc = _strlen(src);
+	destend = malloc(sizeof(char) * (lendest + lensrc) + 1);
+	if (!destend)
+		return (NULL);
+	_strcpy(dest, destend);
+	_strcpy(src, destend + lendest);
+	return (destend);
 }
 
 /**
@@ -48,8 +68,17 @@ char *_strcat(char *dest, char *src)
 
 int _strcmp(char *s1, char *s2)
 {
-	/* TODO: implement */
-	UNUSED(s1);
-	UNUSED(s2);
-	return (0);
+	while ((*s1 != '\0' && *s2 != '\0') && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	if (*s1 == '\0' && *s2 == '\0')
+		return (0);
+	else if (*s1 == '\0')
+		return (*s2 * -1);
+	else if (*s2 == '\0')
+		return (*s1);
+	else
+		return ((*s1) - (*s2));
 }
