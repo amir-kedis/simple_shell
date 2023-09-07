@@ -3,12 +3,14 @@
 This is a simple shell project for ALX Software Engineering. It is a simple UNIX command interpreter that replicates the basic functionalities of the sh shell. This was made as part of the first sprint curiculum of the ALX Software Engineering program.
 
 ## Authors
-**Sarah Kamal** 
-**Amir Kedis** 
+* **Sarah Kamal** 
+* **Amir Kedis** 
 
 ## TODOS:
-[] Make STUPS
-[] Make Main Structure
+[X] Make STUPS
+[X] Make Main Structure
+[ ] implement linked list class
+[ ] implement string functions
 
 ## Allowed Functions and System Calls
 | Function  | Header        |
@@ -59,6 +61,6 @@ chmod u+x hsh
 To run tests:
 ```bash
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c \
-tests/{your-test-name}.c -o test_driver
+tests/{your-test-name}.c -o test_driver.out
 ```
 
