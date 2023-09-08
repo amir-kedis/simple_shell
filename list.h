@@ -23,5 +23,6 @@ void list_print(list_t *head);
 list_t *list_pop(list_t **head);
 void list_free(list_t **head);
 list_t *list_get_node(list_t *head, unsigned int index);
+char **list_to_array(list_t *head);
 
 #endif

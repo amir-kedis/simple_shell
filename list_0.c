@@ -1,5 +1,5 @@
-#include "list.h"
 #include "hsh.h"
+#include "list.h"
 
 /**
  * list_push - add a node to the end of a list
@@ -9,10 +9,10 @@
  */
 list_t *list_push(list_t **head, char *str)
 {
-	/* TODO: implement */
-	UNUSED(head);
-	UNUSED(str);
-	return (NULL);
+	list_t *new_node = malloc(sizeof(list_t));
+
+	if (new_node == NULL)
+		return (NULL);
 }
 
 /**
