@@ -57,7 +57,7 @@
 /* FIXME: this function prototype is not final yet */
 void hsh(void);
 
-/* STRING functions - string_lib.c */
+/* STRING functions - string_lib_{0,1}.c */
 unsigned int _strlen(char *str);
 char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
