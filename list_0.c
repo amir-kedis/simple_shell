@@ -11,8 +11,12 @@ list_t *list_push(list_t **head, char *str)
 {
 	list_t *new_node = malloc(sizeof(list_t));
 
+	UNUSED(head);
+	UNUSED(str);
+
 	if (new_node == NULL)
 		return (NULL);
+	return (NULL);
 }
 
 /**

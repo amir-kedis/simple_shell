@@ -7,6 +7,8 @@
  */
 unsigned int _strlen(char *str)
 {
+	/* FIXME: somehow gives wrong answer */
+
 	int i;
 
 	i = 0;
@@ -46,6 +48,7 @@ char *_strdup(char *str)
  */
 char *_strcat(char *dest, char *src)
 {
+	/* FIXME: somehow gives wrong answer */
 	int lendest, lensrc;
 	char *destend;
 	lendest = _strlen(dest);
