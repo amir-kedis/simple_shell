@@ -2,17 +2,17 @@
 #define LIST_H
 
 /**
- * strcut list - linked list
- * @str: string (data)
- * @next: pointer to next node
- *
- * Description: linked list node structure
+ * struct list - singly linked list
+ * @str: string - (data)
+ * @length: length of the string
+ * @next: points to the next node
+ * Description: singly linked list node structure
  */
 typedef struct list
 {
 	char *str;
+	int length;
 	struct list *next;
-	/* NOTE: We might need to add and index or something later. */
 } list_t;
 
 /* ===================================================== */
