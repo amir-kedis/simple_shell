@@ -36,6 +36,8 @@ void hsh(void)
 	return;
 }
 
+#if !TEST_FILE_MODE
+
 /**
  * main - entry point - temprorary driver function
  * Return: EXIT_SUCCESS
@@ -43,6 +45,8 @@ void hsh(void)
 
 int main(void)
 {
-	hsh();	
+	hsh();
 	return (EXIT_SUCCESS);
 }
+
+#endif /* if 0 */
