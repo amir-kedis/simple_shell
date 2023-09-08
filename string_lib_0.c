@@ -7,9 +7,7 @@
  */
 unsigned int _strlen(char *str)
 {
-	/* FIXME: somehow gives wrong answer */
-
-	int i;
+	unsigned int i;
 
 	i = 0;
 	while (*str != '\0')
@@ -48,17 +46,20 @@ char *_strdup(char *str)
  */
 char *_strcat(char *dest, char *src)
 {
-	/* FIXME: somehow gives wrong answer */
-	int lendest, lensrc;
-	char *destend;
-	lendest = _strlen(dest);
-	lensrc = _strlen(src);
-	destend = malloc(sizeof(char) * (lendest + lensrc) + 1);
-	if (!destend)
-		return (NULL);
-	_strcpy(dest, destend);
-	_strcpy(src, destend + lendest);
-	return (destend);
+	char *cur = dest;
+
+	while (*cur != '\0')
+		cur++;
+
+	while (*src != '\0')
+	{
+		*cur = *src;
+		cur++;
+		src++;
+	}
+
+	*cur = '\0';
+	return (dest);
 }
 
 /**
