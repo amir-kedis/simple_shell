@@ -7,6 +7,14 @@
 void hsh(void)
 {
 	/* TODO: implement and adjust prototype as appropriate */
+	char *line;
+	size_t len = 0;
+
+	printf("%s", PROMPT);
+	getline(&line, &len, stdin);
+	printf("%s", line);
+
+	free(line);
 	return;
 }
 

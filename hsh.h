@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,6 +38,8 @@
 /* buffer constants */
 #define BUF_SIZE 1024
 #define BUF_FLUSH -1
+
+#define PROMPT "$ "
 
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
