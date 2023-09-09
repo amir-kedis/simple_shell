@@ -19,8 +19,8 @@ void hsh(char **env)
 
 	/* clang-format off */
 	do {
-/* clang-format on */
-/* FIXME: this condition is temprorary */
+		/* clang-format on */
+		/* FIXME: this condition is temprorary */
 #if INTERACTIVE_MODE
 		_puts(PROMPT);
 #endif
