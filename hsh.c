@@ -14,8 +14,9 @@ void hsh(void)
 	ssize_t read_count;
 	char *word;
 
-	do
-	{
+	/* clang-format off */
+	do {
+		/* clang-format on */
 		_puts(PROMPT);
 		read_count = getline(&line, &len, stdin);
 
@@ -29,11 +30,9 @@ void hsh(void)
 				word = strtok(NULL, DILIM);
 			}
 		}
-	}
-	while (read_count != -1);
+	} while (read_count != -1);
 
 	free(line);
-	return;
 }
 
 #if !TEST_FILE_MODE
