@@ -8,10 +8,10 @@
 int _putchar(char c)
 {
 	static char buffer[BUF_SIZE];
-	static int position = 0;
+	static int position;
 	int written_bytes = 0;
 
-	if (position == BUF_SIZE || c == BUF_FLUSH)
+	if (position >= BUF_SIZE || c == BUF_FLUSH)
 	{
 		written_bytes = write(STDOUT_FILENO, buffer, position);
 		position = 0;

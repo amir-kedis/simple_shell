@@ -7,5 +7,5 @@ BraceWrapping:
   AfterControlStatement: Always
   AfterFunction: true
   BeforeElse: true
-  BeforeWhile: true
+  BeforeWhile: false
   AfterStruct: true
