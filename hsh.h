@@ -43,6 +43,7 @@
 #define DILIM " \t\r\n\a"
 
 #define TEST_FILE_MODE 0
+#define INTERACTIVE_MODE 0
 
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
@@ -57,7 +58,7 @@
 
 /* MAIN hsh functions - hsh.c */
 /* FIXME: this function prototype is not final yet */
-void hsh(void);
+void hsh(char **env);
 
 /* STRING functions - string_lib_{0,1}.c */
 unsigned int _strlen(char *str);
@@ -65,8 +66,12 @@ char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 void _strcpy(char *src, char *dest);
+
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _puts(char *str);
+
+/* EXECUTE COMMANDS functions - exec_lib.c */
+void execute_command(char **args, char **env);
 
 #endif

@@ -1,10 +1,12 @@
 #include "hsh.h"
+#include "list.h"
 
 /**
  * hsh - Main shell loop function
+ * @env: environment variables
  * Return: void
  */
-void hsh(void)
+void hsh(char **env)
 {
 	/* TODO: implement and adjust prototype as appropriate */
 	/* this is an ecpermiental function */
@@ -13,11 +15,15 @@ void hsh(void)
 	size_t len = 0;
 	ssize_t read_count;
 	char *word;
+	list_t *tokens = NULL;
 
 	/* clang-format off */
 	do {
-		/* clang-format on */
+/* clang-format on */
+/* FIXME: this condition is temprorary */
+#if INTERACTIVE_MODE
 		_puts(PROMPT);
+#endif
 		read_count = getline(&line, &len, stdin);
 
 		if (read_count != -1)
@@ -25,13 +31,13 @@ void hsh(void)
 			word = strtok(line, DILIM);
 			while (word != NULL)
 			{
-				_puts(word);
-				_puts("\n");
+				list_push(&tokens, word);
 				word = strtok(NULL, DILIM);
 			}
+			execute_command(list_to_array(tokens), env);
+			list_free(&tokens);
 		}
 	} while (read_count != -1);
-
 	free(line);
 }
 
@@ -39,12 +45,17 @@ void hsh(void)
 
 /**
  * main - entry point - temprorary driver function
+ * @argc: argument count
+ * @argv: argument vector
+ * @env: environment variables
  * Return: EXIT_SUCCESS
  */
 
-int main(void)
+int main(int argc, char **argv, char **env)
 {
-	hsh();
+	UNUSED(argc);
+	UNUSED(argv);
+	hsh(env);
 	return (EXIT_SUCCESS);
 }
 
