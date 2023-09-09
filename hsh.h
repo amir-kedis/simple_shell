@@ -42,7 +42,7 @@
 #define PROMPT "$ "
 #define DILIM " \t\r\n\a"
 
-#define TEST_FILE_MODE 1
+#define TEST_FILE_MODE 0
 
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
