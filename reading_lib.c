@@ -1,10 +1,10 @@
+
 #include"hsh.h"
-#define BUFFER_SIZE 128
 /**
 * custom_getchar - Read a character from FILE stream @f.
 * @f: FILE pointer to the input stream.
 *
-* Returns: The character read as an integer, or EOF on error or end of file.
+* Return: The character read as an integer, or EOF on error or end of file.
 */
 int custom_getchar(FILE *f)
 {
@@ -18,80 +18,60 @@ int custom_getchar(FILE *f)
 		return (EOF);
 	}
 	else
-	{	
+	{
 		numread = read(fd, &reado, 1);
 		if (numread == 1)
 			return ((int)reado);
-		else
-			{
-				perror("Failed to read");
-				return (EOF);
-			}
+		perror("Failed to read");
+		return (EOF);
 	}
 }
 /**
 * custom_getline - Read a line from FILE stream @f and store it in @line.
-* @line: Pointer to the buffer.
+* @s: Pointer to the buffer.
 * @startlen: Pointer to the initial buffer size.
 * @f: FILE stream to read from.
-* Return: Number of characters read (excluding null terminator), or -1 on error.
+* Return: Number of characters read, or -1 on error.
 */
 size_t custom_getline(char **s, size_t *startlen, FILE *f)
 {
-	static char buffer[BUFFER_SIZE];
-	static int bufferindex = 0, buffersize = 0;
-	int fd;
-	size_t sizeofstr = 0;
-	int numread, index = 0;
+	static char buffer[BUF_SIZE];
+	static int bufferindex, buffersize;
+	int numread, index = 0, fd;
 	char *old, *new;
 
-	if (s == NULL || startlen == NULL || f == NULL)
+	if (s == NULL || startlen == NULL || f == NULL) /*check if valid vars*/
 		return (-1);
 	fd = fileno(f);
-	if (*s == NULL)
-	{
-		*s = malloc(BUFFER_SIZE);
-		if (*s == NULL)
-		{
-			perror("Failed to allocate memoryoo");
-			return (-1);
-		}
-		*startlen = BUFFER_SIZE;
-	}
-	if(fd == -1)
-	{
-		perror("Failed to read from file");
-		free(*s);
+	if (fd == -1)
 		return (-1);
-	}
+	if (*s == NULL)
+	{	*s = malloc(BUF_SIZE * 2);
+		if (*s == NULL)
+			return (-1);
+		*startlen = BUF_SIZE * 2; }
+	bufferindex = 0;
 	while (1)
 	{
-		numread = read(fd, buffer, sizeof(buffer));
-		if (numread == -1)
-		{
-			perror("Failed reading");
-			free(*s);
-			return (-1);
-		}
-		if (numread == 0)
-		{
-			break;
-		}	
-		if(!((*startlen - index - 1) > numread + 1))
-		{
-			old = *s;
-			new = realloc(*s, (*startlen) * 2 + numread);
-			if (new == NULL)
-			{
-				perror("Failed memory allocation");
-				free(old);
-				return (-1);
-			}
-			*startlen *= 2;
-			*s = new;
-		}
-	_strcpylen(buffer, *s + index, numread);
-	index += numread;
+		if (bufferindex == 0 || bufferindex == buffersize)
+		{	bufferindex = 0;
+			numread = read(fd, buffer, sizeof(buffer));
+			if (numread == -1)
+			{	free(*s);
+				return (-1); }
+			if (numread == 0)
+				break;
+			buffersize = numread;
+			if (!((*startlen - index - 1) > (size_t)numread + 1))
+			{	new = realloc(*s, (*startlen) * 2 + numread);
+				if (new == NULL)
+				{	free(*s);
+					return (-1); }
+				*startlen *= 2;
+				*s = new; } }
+		while (buffer[bufferindex] != '\n' && bufferindex < buffersize)
+			(*s)[index++] = buffer[bufferindex++];
+		if (buffer[bufferindex++] == '\n')
+			break; }
 	(*s)[index] = '\0';
-	}
-}
+	return (index); }
