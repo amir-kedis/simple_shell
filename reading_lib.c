@@ -38,7 +38,7 @@ size_t custom_getline(char **s, size_t *startlen, FILE *f)
 	static char buffer[BUF_SIZE];
 	static int bufferindex, buffersize;
 	int numread, index = 0, fd;
-	char *old, *new;
+	char *new;
 
 	if (s == NULL || startlen == NULL || f == NULL) /*check if valid vars*/
 		return (-1);

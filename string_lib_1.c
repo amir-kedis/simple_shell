@@ -38,3 +38,33 @@ void _strcpylen(char *src, char *ogdest, int size)
 	}
 	*dest = '\0';
 }
+/**
+* custom_atoi - Convert a string to an integer.
+*
+* @str: The input string to be converted.
+*
+* Return: The integer value parsed from the input string.
+*/
+int custom_atoi(const char *str)
+{
+	int result, sign;
+
+	result = 0; 
+	sign = 1;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (*str != '\0')
+	{
+		if (*str >= '0' || *str <= '9')
+			result = result * 10 + (*str - '0');
+		else
+			break;
+		str++;
+	}
+	return (result * sign);
+}
+		
