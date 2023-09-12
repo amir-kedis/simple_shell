@@ -79,10 +79,15 @@ char *get_path(char *command, char **env)
 		_strcat(full_path, "/");
 		_strcat(full_path, command);
 		if (access(full_path, X_OK) == 0)
+		{
+			free(path);
 			return (full_path);
+		}
+
 		free(full_path);
 		token = strtok(NULL, ":");
 	}
 
+	free(path);
 	return (NULL);
 }
