@@ -13,6 +13,7 @@ char *_getenv(char *name, char **env)
 	char *token;
 	char *value;
 	char **env_copy;
+	char *env_name;
 
 	if (env == NULL)
 		env_copy = copy_str_array(__environ);
@@ -25,7 +26,15 @@ char *_getenv(char *name, char **env)
 		if (_strcmp(token, name) == 0)
 		{
 			value = strtok(NULL, "=");
-			return (value);
+			if (value == NULL)
+			{
+				free_str_array(env_copy);
+				return (NULL);
+			}
+			env_name = _strdup(value);
+			free_str_array(env_copy);
+			env_copy = NULL;
+			return (env_name);
 		}
 	}
 

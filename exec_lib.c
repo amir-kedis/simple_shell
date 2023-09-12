@@ -65,7 +65,7 @@ char *get_path(char *command, char **env)
 		return (_strdup(command));
 
 	path = _getenv("PATH", env);
-	if (path == NULL)
+	if (path == NULL || path[0] == '\0' || path[0] == '\n')
 		return (NULL);
 
 	token = strtok(path, ":");
