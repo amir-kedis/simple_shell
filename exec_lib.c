@@ -1,4 +1,6 @@
 #include "hsh.h"
+#include <errno.h>
+#include <stdio.h>
 
 /**
  * execute_command - executes a command
@@ -12,22 +14,26 @@ void execute_command(char **args, char **env)
 	int status;
 	char *cmd_path = get_path(args[0], env);
 
-	if (cmd_path == NULL)
+	if (args[0] == NULL || args[0][0] == '\0' || args[0][0] == '\n')
 		return;
-
+	if (cmd_path == NULL)
+	{
+		exit_error(args[0], 1, "not found", 127);
+		return;
+	}
 	pid = fork();
 	if (pid == 0) /* child process */
 	{
 		if (execve(cmd_path, args, env) == -1)
 		{
+			perror("./hsh: 1");
+			exit(127);
 			return;
 		}
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == -1) /* error forking */
-	{
 		perror("Error forking");
-	}
 	else /* parent process */
 	{
 		/* clang-format off */
@@ -35,7 +41,7 @@ void execute_command(char **args, char **env)
 			/* clang-format on */
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-		free(args);
+		/* free_str_array(args); */
 	}
 }
 

@@ -71,7 +71,9 @@ void free_str_array(char **str_array);
 
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
+int _putchar_fd(char c, int fd);
 int _puts(char *str);
+int _puts_fd(char *str, int fd);
 
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(char **args, char **env);
@@ -79,5 +81,8 @@ char *get_path(char *command, char **env);
 
 /* ENVIROMENT functions - env_lib.c */
 char *_getenv(char *name, char **env);
+
+/* ERROR functions - error_lib.c */
+void exit_error(char *file_name, int line_number, char *msg, int exit_code);
 
 #endif
