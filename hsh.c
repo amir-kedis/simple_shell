@@ -16,6 +16,7 @@ void hsh(char **env)
 	ssize_t read_count;
 	char *word;
 	list_t *tokens = NULL;
+	char **tokens_array = NULL;
 
 	/* clang-format off */
 	do {
@@ -34,7 +35,10 @@ void hsh(char **env)
 				list_push(&tokens, word);
 				word = strtok(NULL, DILIM);
 			}
-			execute_command(list_to_array(tokens), env);
+			tokens_array = list_to_array(tokens);
+			execute_command(tokens_array, env);
+			free_str_array(tokens_array);
+			tokens_array = NULL;
 			list_free(&tokens);
 		}
 	} while (read_count != -1);

@@ -43,7 +43,6 @@ void execute_command(char **args, char **env)
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		free(cmd_path);
-		/* free_str_array(args); */
 	}
 }
 
@@ -63,7 +62,7 @@ char *get_path(char *command, char **env)
 	if (command == NULL)
 		return (NULL);
 	if (command[0] == '/' || command[0] == '.')
-		return (command);
+		return (_strdup(command));
 
 	path = _getenv("PATH", env);
 	if (path == NULL)

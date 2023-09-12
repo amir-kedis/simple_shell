@@ -59,13 +59,18 @@ char **copy_str_array(char **str_array)
 
 void free_str_array(char **str_array)
 {
-	int i;
+	int i = 0;
 
 	if (str_array == NULL)
 		return;
 
 	for (i = 0; str_array[i] != NULL; i++)
-		free(str_array[i]);
+	{
+		if (str_array[i] != NULL)
+			free(str_array[i]);
+		str_array[i] = NULL;
+	}
 
 	free(str_array);
+	str_array = NULL;
 }
