@@ -43,7 +43,7 @@
 #define DILIM " \t\r\n\a"
 
 #define TEST_FILE_MODE 0
-#define INTERACTIVE_MODE 1
+#define INTERACTIVE_MODE 0
 
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
@@ -68,6 +68,7 @@ int _strcmp(char *s1, char *s2);
 void _strcpy(char *src, char *dest);
 void _strcpylen(char *src, char *ogdest, int size);
 int custom_atoi(const char *str);
+int isnumerical(const char *str);
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _puts(char *str);

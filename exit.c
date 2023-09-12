@@ -15,11 +15,20 @@ int exitcheck(char **s)
 	{
 		if (s[1] == NULL)
 			return (0);
+		if (isnumerical(s[1]) == -1)
+			return (2);
 		exitcode = custom_atoi(s[1]);
 		if (exitcode >= 0 && exitcode <= 255)
 			return (exitcode);	
+		else if (exitcode > 255)
+		{
+			exitcode %= 256;
+			return (exitcode);
+		}
 		else
-			return (-1);
+		{
+			return (2);
+		}
 	}
-	return (-1);
+	return (2);
 }

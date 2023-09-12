@@ -59,7 +59,7 @@ int custom_atoi(const char *str)
 	}
 	while (*str != '\0')
 	{
-		if (*str >= '0' || *str <= '9')
+		if (*str >= '0' && *str <= '9')
 			result = (result * 10) + (*str - '0');
 		else
 			break;
@@ -67,4 +67,20 @@ int custom_atoi(const char *str)
 	}
 	return (result * sign);
 }
-		
+/**
+* isnumerical - Check if a string is a valid numerical value.
+*
+* @str: The string to check.
+* Return: true if it's a valid numerical value, false otherwise.
+*/
+int isnumerical(const char *str)
+{
+	while (*str != '\0')
+	{
+		if (*str >= '0' && *str <= '9')
+			str++;
+		else
+			return (-1);
+	}
+	return (1);
+}
