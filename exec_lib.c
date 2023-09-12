@@ -28,6 +28,7 @@ void execute_command(char **args, char **env)
 		{
 			perror("./hsh: 1");
 			exit(127);
+			free(cmd_path);
 			return;
 		}
 		exit(EXIT_FAILURE);
@@ -41,6 +42,7 @@ void execute_command(char **args, char **env)
 			/* clang-format on */
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		free(cmd_path);
 		/* free_str_array(args); */
 	}
 }
