@@ -11,15 +11,15 @@ int exitcheck(char **s)
 
 	if (s == NULL)
 		return (-1);
-	if (_strcmp(*s, "exit\0") == 0)
+	if (_strcmp(s[0], "exit\0") == 0)
 	{
-		if ((*s + 1) == NULL)
+		if (s[1] == NULL)
 			return (0);
-		exitcode = custom_atoi((*s) + 1);
+		exitcode = custom_atoi(s[1]);
 		if (exitcode >= 0 && exitcode <= 255)
 			return (exitcode);	
 		else
 			return (-1);
 	}
-	return (0);
+	return (-1);
 }
