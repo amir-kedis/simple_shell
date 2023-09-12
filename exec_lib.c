@@ -13,7 +13,8 @@ void execute_command(char **args, char **env)
 
 	if (args[0] == NULL)
 		return;
-
+	if (exitcheck(args) >= 0)
+		exit(exitcheck(args));
 	pid = fork();
 	if (pid == 0) /* child process */
 	{

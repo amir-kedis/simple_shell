@@ -24,7 +24,7 @@ void hsh(char **env)
 #if INTERACTIVE_MODE
 		_puts(PROMPT);
 #endif
-		read_count = getline(&line, &len, stdin);
+		read_count = custom_getline(&line, &len, stdin);
 
 		if (read_count != -1)
 		{

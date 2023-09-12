@@ -66,12 +66,16 @@ char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 void _strcpy(char *src, char *dest);
-
+void _strcpylen(char *src, char *ogdest, int size);
+int custom_atoi(const char *str);
+int isnumerical(const char *str);
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _puts(char *str);
 
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(char **args, char **env);
-
+int exitcheck(char **s);
+/* Reading from files functions */
+size_t custom_getline(char **line, size_t *startlen, FILE *f);
 #endif
