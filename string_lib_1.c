@@ -18,11 +18,11 @@ void _strcpy(char *src, char *ogdest)
 	*dest = '\0';
 }
 /**
-* _strcpylen - Copy at most 'size' characters from 'src' to 'ogdest'.
-* @src: Source string to copy from.
-* @ogdest: Destination buffer to copy to.
-* @size: Maximum number of characters to copy.
-*/
+ * _strcpylen - Copy at most 'size' characters from 'src' to 'ogdest'.
+ * @src: Source string to copy from.
+ * @ogdest: Destination buffer to copy to.
+ * @size: Maximum number of characters to copy.
+ */
 void _strcpylen(char *src, char *ogdest, int size)
 {
 	char *dest;
@@ -30,7 +30,7 @@ void _strcpylen(char *src, char *ogdest, int size)
 
 	counter = 0;
 	dest = ogdest;
-	while(*src != '\0' && counter != size)
+	while (*src != '\0' && counter != size)
 	{
 		*dest = *src;
 		dest++;
@@ -39,17 +39,17 @@ void _strcpylen(char *src, char *ogdest, int size)
 	*dest = '\0';
 }
 /**
-* custom_atoi - Convert a string to an integer.
-*
-* @str: The input string to be converted.
-*
-* Return: The integer value parsed from the input string.
-*/
+ * custom_atoi - Convert a string to an integer.
+ *
+ * @str: The input string to be converted.
+ *
+ * Return: The integer value parsed from the input string.
+ */
 int custom_atoi(const char *str)
 {
 	int result, sign;
 
-	result = 0; 
+	result = 0;
 	sign = 1;
 	if (*str == '+' || *str == '-')
 	{
@@ -68,11 +68,11 @@ int custom_atoi(const char *str)
 	return (result * sign);
 }
 /**
-* isnumerical - Check if a string is a valid numerical value.
-*
-* @str: The string to check.
-* Return: true if it's a valid numerical value, false otherwise.
-*/
+ * isnumerical - Check if a string is a valid numerical value.
+ *
+ * @str: The string to check.
+ * Return: true if it's a valid numerical value, false otherwise.
+ */
 int isnumerical(const char *str)
 {
 	while (*str != '\0')
@@ -83,6 +83,7 @@ int isnumerical(const char *str)
 			return (-1);
 	}
 	return (1);
+}
 
 /**
  * copy_str_array - copy a string array

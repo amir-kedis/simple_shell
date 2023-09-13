@@ -81,6 +81,7 @@ int _puts_fd(char *str, int fd);
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(char **args, char **env);
 int exitcheck(char **s);
+
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
 char *get_path(char *command, char **env);

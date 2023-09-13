@@ -17,8 +17,10 @@ void execute_command(char **args, char **env)
 	if (args[0] == NULL || args[0][0] == '\0' || args[0][0] == '\n')
 		return;
 
+  /*
 	if (exitcheck(args) >= 0)
 		exit(exitcheck(args));
+  */
 
 	if (cmd_path == NULL)
 	{
