@@ -69,13 +69,26 @@ void _strcpy(char *src, char *dest);
 void _strcpylen(char *src, char *ogdest, int size);
 int custom_atoi(const char *str);
 int isnumerical(const char *str);
+char **copy_str_array(char **str_array);
+void free_str_array(char **str_array);
+
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
+int _putchar_fd(char c, int fd);
 int _puts(char *str);
+int _puts_fd(char *str, int fd);
 
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(char **args, char **env);
 int exitcheck(char **s);
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
+char *get_path(char *command, char **env);
+
+/* ENVIROMENT functions - env_lib.c */
+char *_getenv(char *name, char **env);
+
+/* ERROR functions - error_lib.c */
+void exit_error(char *file_name, int line_number, char *msg, int exit_code);
+
 #endif
