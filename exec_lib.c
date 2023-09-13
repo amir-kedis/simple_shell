@@ -8,7 +8,7 @@
  * @env: environment variables
  * Return: void
  */
-void execute_command(char **args, char **env)
+void execute_command(char **args, char **env, char *ob_name)
 {
 	pid_t pid;
 	int status;
@@ -16,15 +16,13 @@ void execute_command(char **args, char **env)
 
 	if (args[0] == NULL || args[0][0] == '\0' || args[0][0] == '\n')
 		return;
+	if (exitcheck(args, ob_name) >= 0)
+		exit(exitcheck(args, ob_name));
 
-  /*
-	if (exitcheck(args) >= 0)
-		exit(exitcheck(args));
-  */
 
 	if (cmd_path == NULL)
 	{
-		exit_error(args[0], 1, "not found", 127);
+		exit_error(ob_name, 1, "not found","" ,127);
 		return;
 	}
 
@@ -33,8 +31,9 @@ void execute_command(char **args, char **env)
 	{
 		if (execve(cmd_path, args, env) == -1)
 		{
-			perror("./hsh: 1");
-			exit(127);
+		/*	perror("./hsh: 1");
+			exit(127);*/
+			exit_error(ob_name, 1, "", "", 127);
 			free(cmd_path);
 			return;
 		}

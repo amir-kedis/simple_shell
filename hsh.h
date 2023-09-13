@@ -42,8 +42,8 @@
 #define PROMPT "$ "
 #define DILIM " \t\r\n\a"
 
-#define TEST_FILE_MODE 0
-#define INTERACTIVE_MODE 0
+#define TEST_FILE_MODE 0  
+#define INTERACTIVE_MODE 1
 
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
@@ -58,7 +58,7 @@
 
 /* MAIN hsh functions - hsh.c */
 /* FIXME: this function prototype is not final yet */
-void hsh(char **env);
+void hsh(char **env, char *);
 
 /* STRING functions - string_lib_{0,1}.c */
 unsigned int _strlen(char *str);
@@ -79,8 +79,8 @@ int _puts(char *str);
 int _puts_fd(char *str, int fd);
 
 /* EXECUTE COMMANDS functions - exec_lib.c */
-void execute_command(char **args, char **env);
-int exitcheck(char **s);
+void execute_command(char **args, char **env, char *);
+int exitcheck(char **s, char *filename);
 
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
@@ -90,6 +90,6 @@ char *get_path(char *command, char **env);
 char *_getenv(char *name, char **env);
 
 /* ERROR functions - error_lib.c */
-void exit_error(char *file_name, int line_number, char *msg, int exit_code);
+void exit_error(char *file_name, int line_number, char *exc, char *msg, int exit_code);
 
 #endif

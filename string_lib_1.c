@@ -75,6 +75,8 @@ int custom_atoi(const char *str)
  */
 int isnumerical(const char *str)
 {
+	if (*str == '-' || *str == '+') 
+		str++;
 	while (*str != '\0')
 	{
 		if (*str >= '0' && *str <= '9')

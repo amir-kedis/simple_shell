@@ -15,7 +15,7 @@ int main()
 	while(reading)
 	{
 		reading = custom_getline(&s, &size, f);
-		printf("%s this is line\n", s);
+		printf("this is line %s\n", s);
 		fflush(stdout);
 	}
 	fclose(f);

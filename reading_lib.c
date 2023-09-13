@@ -36,8 +36,8 @@ int custom_getchar(FILE *f)
 size_t custom_getline(char **s, size_t *startlen, FILE *f)
 {
 	static char buffer[BUF_SIZE];
-	static int bufferindex, buffersize;
-	int numread, index = 0, fd;
+	static int bufferindex = 0, buffersize = 0;/*used to trak the static buffer*/
+	int numread, index = 0, fd;/*used to track the string returned*/
 	char *new;
 
 	if (s == NULL || startlen == NULL || f == NULL) /*check if valid vars*/
@@ -50,28 +50,30 @@ size_t custom_getline(char **s, size_t *startlen, FILE *f)
 		if (*s == NULL)
 			return (-1);
 		*startlen = BUF_SIZE * 2; }
-	bufferindex = 0;
 	while (1)
 	{
-		if (bufferindex == 0 || bufferindex == buffersize)
+		if (bufferindex == buffersize)
 		{	bufferindex = 0;
 			numread = read(fd, buffer, sizeof(buffer));
 			if (numread == -1)
 			{	free(*s);
 				return (-1); }
 			if (numread == 0)
-				break;
+			{	if (index == 0)
+					return (-1);
+				break; }	
 			buffersize = numread;
-			if (!((*startlen - index - 1) > (size_t)numread + 1))
-			{	new = realloc(*s, (*startlen) * 2 + numread);
+			if (!((*startlen - index - 1) > (size_t)numread + 1))/*if there's not enough space allocate*/
+			{	new = realloc(*s, (*startlen) * 1.5 + numread);
 				if (new == NULL)
 				{	free(*s);
 					return (-1); }
-				*startlen *= 2;
+				*startlen = (*startlen) * 1.5 + numread;
 				*s = new; } }
 		while (buffer[bufferindex] != '\n' && bufferindex < buffersize)
 			(*s)[index++] = buffer[bufferindex++];
-		if (buffer[bufferindex++] == '\n')
-			break; }
+		if (buffer[bufferindex] == '\n')
+		{	bufferindex++;
+			break; }}
 	(*s)[index] = '\0';
 	return (index); }
