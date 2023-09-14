@@ -22,7 +22,7 @@ void execute_command(char **args, char **env, char *ob_name)
 
 	if (cmd_path == NULL)
 	{
-		exit_error(ob_name, 1, "not found","" ,127);
+		exit_error(ob_name, 1, "not found","" , 127, NULL);
 		return;
 	}
 
@@ -33,7 +33,7 @@ void execute_command(char **args, char **env, char *ob_name)
 		{
 		/*	perror("./hsh: 1");
 			exit(127);*/
-			exit_error(ob_name, 1, "", "", 127);
+			exit_error(ob_name, 1, "", "", 127, NULL);
 			free(cmd_path);
 			return;
 		}

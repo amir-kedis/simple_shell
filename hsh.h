@@ -43,7 +43,7 @@
 #define DILIM " \t\r\n\a"
 
 #define TEST_FILE_MODE 0  
-#define INTERACTIVE_MODE 1
+#define INTERACTIVE_MODE 0
 
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
@@ -90,6 +90,6 @@ char *get_path(char *command, char **env);
 char *_getenv(char *name, char **env);
 
 /* ERROR functions - error_lib.c */
-void exit_error(char *file_name, int line_number, char *exc, char *msg, int exit_code);
+void exit_error(char *file_name, int line_number, char *exc, char *msg, int exit_code, char *msgarg);
 
 #endif

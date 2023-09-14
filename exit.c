@@ -16,7 +16,7 @@ int exitcheck(char **s, char *filename)
 		if (s[1] == NULL)
 			return (0);
 		if (isnumerical(s[1]) == -1)
-			exit_error(filename, 1, "exit", "Illegal number" + s[1], 2);
+			exit_error(filename, 1, "exit", "Illegal number", 2, s[1]);
 		exitcode = custom_atoi(s[1]);
 		if (exitcode >= 0 && exitcode <= 255)
 			return (exitcode);	
@@ -27,7 +27,7 @@ int exitcheck(char **s, char *filename)
 		}
 		else
 		{
-			 exit_error(filename, 1, "exit", _strcat("Illegal number", s[1]), 2);
+			 exit_error(filename, 1, "exit", "Illegal number", 2, s[1]);
 		}
 	}
 	return (-1);
