@@ -7,10 +7,9 @@ This is a simple shell project for ALX Software Engineering. It is a simple UNIX
 * **Amir Kedis** 
 
 ## TODOS:
-[X] Make STUPS
-[X] Make Main Structure
-[ ] implement linked list class
-[ ] implement string functions
+- [ ] Display a prompt only in Interactive mode.
+- [ ] Handle the builtin handling and refactor exit
+- [ ] Fix exit not giving the correct exit code
 
 ## Allowed Functions and System Calls
 | Function  | Header        |
