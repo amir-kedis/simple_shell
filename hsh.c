@@ -6,12 +6,12 @@
  * @env: environment variables
  * Return: void
  */
-void hsh(char **env)
+void hsh(char **env, char *ob_name)
 {
 	/* TODO: implement and adjust prototype as appropriate */
 	/* this is an ecpermiental function */
 	/* that prints the prompt and prints back the tokens that is gets */
-	char *line;
+	char *line = NULL;
 	size_t len = 0;
 	ssize_t read_count;
 	char *word;
@@ -25,8 +25,7 @@ void hsh(char **env)
 #if INTERACTIVE_MODE
 		_puts(PROMPT);
 #endif
-		read_count = getline(&line, &len, stdin);
-
+		read_count = custom_getline(&line, &len, stdin);
 		if (read_count != -1)
 		{
 			word = strtok(line, DILIM);
@@ -36,7 +35,7 @@ void hsh(char **env)
 				word = strtok(NULL, DILIM);
 			}
 			tokens_array = list_to_array(tokens);
-			execute_command(tokens_array, env);
+			execute_command(tokens_array, env, ob_name);
 			free_str_array(tokens_array);
 			tokens_array = NULL;
 			list_free(&tokens);
@@ -59,7 +58,7 @@ int main(int argc, char **argv, char **env)
 {
 	UNUSED(argc);
 	UNUSED(argv);
-	hsh(env);
+	hsh(env, argv[0]);
 	return (EXIT_SUCCESS);
 }
 
