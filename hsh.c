@@ -11,7 +11,7 @@ void hsh(char **env, char *ob_name)
 	/* TODO: implement and adjust prototype as appropriate */
 	/* this is an ecpermiental function */
 	/* that prints the prompt and prints back the tokens that is gets */
-	char *line;
+	char *line = NULL;
 	size_t len = 0;
 	ssize_t read_count;
 	char *word;

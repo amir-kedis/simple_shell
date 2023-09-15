@@ -24,7 +24,7 @@ void execute_command(char **args, char **env, char *ob_name)
 
 	if (cmd_path == NULL)
 	{
-		exit_error(ob_name, 1, "not found","" , 127, NULL);
+		exit_error(ob_name, 1, "not found", args[0], 127, NULL);
 		return;
 	}
 	
