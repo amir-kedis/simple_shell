@@ -6,6 +6,7 @@
  * execute_command - executes a command
  * @args: arguments to execute
  * @env: environment variables
+ * @ob_name: file executable name
  * Return: void
  */
 void execute_command(char **args, char **env, char *ob_name)
@@ -19,22 +20,19 @@ void execute_command(char **args, char **env, char *ob_name)
 		return;
 	if (exitcheck(args, ob_name) >= 0)
 		exit(exitcheck(args, ob_name));
-	if(printenv(args, ob_name, environ))
-		return ;
+	if (printenv(args, ob_name, environ))
+		return;
 
 	if (cmd_path == NULL)
 	{
 		exit_error(ob_name, 1, args[0], "not found", 127, NULL);
 		return;
 	}
-	
 	pid = fork();
 	if (pid == 0) /* child process */
 	{
 		if (execve(cmd_path, args, environ) == -1)
 		{
-		/*	perror("./hsh: 1");
-			exit(127);*/
 			exit_error(ob_name, 1, "", "", 127, NULL);
 			free(cmd_path);
 			return;
@@ -45,9 +43,7 @@ void execute_command(char **args, char **env, char *ob_name)
 		perror("Error forking");
 	else /* parent process */
 	{
-		/* clang-format off */
 		do {
-			/* clang-format on */
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		free(cmd_path);

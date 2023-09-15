@@ -1,5 +1,11 @@
 #include"hsh.h"
-
+/*
+* printenv - Write environment variables to a file
+* @s: File descriptor for the output file
+* @file_name: Name of the file to write to
+* @env: Array of environment variables (null-terminated)
+* Return: Number of variables written, or -1 on error
+*/
 int printenv(char **s, char *file_name, char **env)
 {
 	int i;
