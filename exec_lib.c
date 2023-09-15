@@ -12,24 +12,26 @@ void execute_command(char **args, char **env, char *ob_name)
 {
 	pid_t pid;
 	int status;
-	char *cmd_path = get_path(args[0], env);
+	char *cmd_path = get_path(args[0], environ);
 
+	(void) env;
 	if (args[0] == NULL || args[0][0] == '\0' || args[0][0] == '\n')
 		return;
 	if (exitcheck(args, ob_name) >= 0)
 		exit(exitcheck(args, ob_name));
-
+	if(printenv(args, ob_name, environ))
+		return ;
 
 	if (cmd_path == NULL)
 	{
 		exit_error(ob_name, 1, "not found","" , 127, NULL);
 		return;
 	}
-
+	
 	pid = fork();
 	if (pid == 0) /* child process */
 	{
-		if (execve(cmd_path, args, env) == -1)
+		if (execve(cmd_path, args, environ) == -1)
 		{
 		/*	perror("./hsh: 1");
 			exit(127);*/

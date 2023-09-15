@@ -44,7 +44,8 @@
 
 #define TEST_FILE_MODE 0  
 #define INTERACTIVE_MODE 0
-
+/*environment variable*/
+extern char **environ;
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
 /* ===================================================== */
@@ -81,7 +82,7 @@ int _puts_fd(char *str, int fd);
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(char **args, char **env, char *);
 int exitcheck(char **s, char *filename);
-
+int printenv(char **s, char *file_name, char **env);
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
 char *get_path(char *command, char **env);
