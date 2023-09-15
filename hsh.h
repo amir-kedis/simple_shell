@@ -42,8 +42,8 @@
 #define PROMPT "$ "
 #define DILIM " \t\r\n\a"
 
-#define TEST_FILE_MODE 0  
-#define INTERACTIVE_MODE 0
+#define TEST_FILE_MODE 0
+
 /*environment variable*/
 extern char **environ;
 /* ===================================================== */
@@ -83,6 +83,7 @@ int _puts_fd(char *str, int fd);
 void execute_command(char **args, char **env, char *);
 int exitcheck(char **s, char *filename);
 int printenv(char **s, char *file_name, char **env);
+
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
 char *get_path(char *command, char **env);
@@ -91,6 +92,7 @@ char *get_path(char *command, char **env);
 char *_getenv(char *name, char **env);
 
 /* ERROR functions - error_lib.c */
-void exit_error(char *file_name, int line_number, char *exc, char *msg, int exit_code, char *msgarg);
+void exit_error(char *file_name, int line_number, char *exc, char *msg,
+								int exit_code, char *msgarg);
 
 #endif

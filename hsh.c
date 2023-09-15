@@ -21,10 +21,8 @@ void hsh(char **env, char *ob_name)
 	/* clang-format off */
 	do {
 		/* clang-format on */
-		/* FIXME: this condition is temprorary */
-#if INTERACTIVE_MODE
-		_puts(PROMPT);
-#endif
+		if (isatty(STDIN_FILENO))
+			_puts(PROMPT);
 		read_count = custom_getline(&line, &len, stdin);
 		if (read_count != -1)
 		{
