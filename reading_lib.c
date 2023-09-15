@@ -27,6 +27,26 @@ int custom_getchar(FILE *f)
 	}
 }
 /**
+ * allocate - to partition getline
+ * @s: Pointer to buffer
+ * @startlen: lenght of starting
+ * @size: size for buffer
+ * Return: int status
+ */
+int allocate(char **s, size_t *startlen, size_t size)
+{
+	if (*s == NULL)
+	{
+		*startlen = size;
+		*s = malloc(*startlen);
+		if (*s == NULL)
+			return (-1);
+		return (1);
+	}
+	return (0);
+}
+
+/**
 * custom_getline - Read a line from FILE stream @f and store it in @line.
 * @s: Pointer to the buffer.
 * @startlen: Pointer to the initial buffer size.
@@ -36,7 +56,7 @@ int custom_getchar(FILE *f)
 size_t custom_getline(char **s, size_t *startlen, FILE *f)
 {
 	static char buffer[BUF_SIZE];
-	static int bufferindex = 0, buffersize = 0;/*used to trak the static buffer*/
+	static int bufferindex, buffersize;/*used to trak the static buffer*/
 	int numread, index = 0, fd;/*used to track the string returned*/
 	char *new;
 
@@ -45,11 +65,8 @@ size_t custom_getline(char **s, size_t *startlen, FILE *f)
 	fd = fileno(f);
 	if (fd == -1)
 		return (-1);
-	if (*s == NULL)
-	{	*s = malloc(BUF_SIZE * 2);
-		if (*s == NULL)
-			return (-1);
-		*startlen = BUF_SIZE * 2; }
+	if (allocate(s, startlen, BUF_SIZE * 2) == -1)
+		return (-1);
 	while (1)
 	{
 		if (bufferindex == buffersize)
@@ -59,11 +76,12 @@ size_t custom_getline(char **s, size_t *startlen, FILE *f)
 			{	free(*s);
 				return (-1); }
 			if (numread == 0)
-			{	if (index == 0)
+			{
+				if (index == 0)
 					return (-1);
-				break; }	
+				break; }
 			buffersize = numread;
-			if (!((*startlen - index - 1) > (size_t)numread + 1))/*if there's not enough space allocate*/
+			if (!((*startlen - index - 1) > (size_t)numread + 1))
 			{	new = realloc(*s, (*startlen) * 1.5 + numread);
 				if (new == NULL)
 				{	free(*s);

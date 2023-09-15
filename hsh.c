@@ -4,6 +4,7 @@
 /**
  * hsh - Main shell loop function
  * @env: environment variables
+ * @ob_name: executable name
  * Return: void
  */
 void hsh(char **env, char *ob_name)

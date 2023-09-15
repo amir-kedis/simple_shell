@@ -78,7 +78,8 @@ int _putchar(char c);
 int _putchar_fd(char c, int fd);
 int _puts(char *str);
 int _puts_fd(char *str, int fd);
-
+/*parcing funcs*/
+int allocate(char **s, size_t *startlen, size_t);
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(char **args, char **env, char *);
 int exitcheck(char **s, char *filename);
