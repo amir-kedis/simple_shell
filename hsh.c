@@ -6,7 +6,7 @@
  * @env: environment variables
  * Return: void
  */
-void hsh(char **env, char *ob_name)
+void hsh(env_t *env)
 {
 	/* TODO: implement and adjust prototype as appropriate */
 	/* this is an ecpermiental function */
@@ -33,7 +33,7 @@ void hsh(char **env, char *ob_name)
 				word = strtok(NULL, DILIM);
 			}
 			tokens_array = list_to_array(tokens);
-			execute_command(tokens_array, env, ob_name);
+			execute_command(tokens_array, env->env, env->argv[0]);
 			free_str_array(tokens_array);
 			tokens_array = NULL;
 			list_free(&tokens);
@@ -54,9 +54,12 @@ void hsh(char **env, char *ob_name)
 
 int main(int argc, char **argv, char **env)
 {
-	UNUSED(argc);
-	UNUSED(argv);
-	hsh(env, argv[0]);
+	env_t _env = {NULL, NULL, -1};
+	_env.argv = argv;
+	_env.env = env;
+	_env.argc = argc;
+
+	hsh(&_env);
 	return (EXIT_SUCCESS);
 }
 

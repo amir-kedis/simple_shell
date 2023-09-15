@@ -51,7 +51,23 @@ extern char **environ;
 /* ===================================================== */
 
 /* NOTE: Will be added later */
-/* TODO: Add an envirmoent struct */
+
+/**
+ * struct environment - structure for environment variables and arguments
+ * @env: environment variables
+ * @argv: arguments
+ * @argc: argument count
+ * Description: This structure holds the environment variables and
+ * arguments for the shell
+ * it is made to unify the function signutures for the builtins function
+ */
+typedef struct environment
+{
+	char **env;
+	char **argv;
+	int argc;
+	/* NOTE: add more members as needed */
+} env_t;
 
 /* ===================================================== */
 /* ===================== PROTOTYPES ==================== */
@@ -59,7 +75,7 @@ extern char **environ;
 
 /* MAIN hsh functions - hsh.c */
 /* FIXME: this function prototype is not final yet */
-void hsh(char **env, char *);
+void hsh(env_t *env);
 
 /* STRING functions - string_lib_{0,1}.c */
 unsigned int _strlen(char *str);
