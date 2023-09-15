@@ -1,13 +1,16 @@
-#include"hsh.h"
+#include "hsh.h"
+
+/* FIXME: Code in this file is moved to builtin_lib_0.c */
+/* DLELETE ME */
 /**
-* exitcheck - Custom exit function with optional messages.
-* @s: An array of strings for optional exit messages.
-*
-* Return: exit code.
-*/
+ * exitcheck - Custom exit function with optional messages.
+ * @s: An array of strings for optional exit messages.
+ *
+ * Return: exit code.
+ */
 int exitcheck(char **s, char *filename)
 {
-	int exitcode; 
+	int exitcode;
 
 	if (s == NULL)
 		return (-1);
@@ -19,7 +22,7 @@ int exitcheck(char **s, char *filename)
 			exit_error(filename, 1, "exit", "Illegal number", 2, s[1]);
 		exitcode = custom_atoi(s[1]);
 		if (exitcode >= 0 && exitcode <= 255)
-			return (exitcode);	
+			return (exitcode);
 		else if (exitcode > 255)
 		{
 			exitcode %= 256;
@@ -27,7 +30,7 @@ int exitcheck(char **s, char *filename)
 		}
 		else
 		{
-			 exit_error(filename, 1, "exit", "Illegal number", 2, s[1]);
+			exit_error(filename, 1, "exit", "Illegal number", 2, s[1]);
 		}
 	}
 	return (-1);

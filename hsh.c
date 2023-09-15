@@ -8,9 +8,6 @@
  */
 void hsh(env_t *env)
 {
-	/* TODO: implement and adjust prototype as appropriate */
-	/* this is an ecpermiental function */
-	/* that prints the prompt and prints back the tokens that is gets */
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read_count;
@@ -33,7 +30,8 @@ void hsh(env_t *env)
 				word = strtok(NULL, DILIM);
 			}
 			tokens_array = list_to_array(tokens);
-			execute_command(tokens_array, env->env, env->argv[0]);
+			env->token_arr = tokens_array;
+			execute_command(env);
 			free_str_array(tokens_array);
 			tokens_array = NULL;
 			list_free(&tokens);
@@ -54,7 +52,7 @@ void hsh(env_t *env)
 
 int main(int argc, char **argv, char **env)
 {
-	env_t _env = {NULL, NULL, -1};
+	env_t _env = {NULL, NULL, -1, NULL, 0};
 	_env.argv = argv;
 	_env.env = env;
 	_env.argc = argc;

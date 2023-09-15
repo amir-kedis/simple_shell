@@ -1,5 +1,9 @@
-#include"hsh.h"
+#include "hsh.h"
 
+/* FIXME: Code in this file is moved to builtin_lib_0.c */
+/* DLELETE ME */
+/* NOTE: this implementation will probally change because of set and unset env
+ */
 int printenv(char **s, char *file_name, char **env)
 {
 	int i;

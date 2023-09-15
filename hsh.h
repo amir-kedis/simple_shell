@@ -50,13 +50,13 @@ extern char **environ;
 /* ===================== STRUCTS ======================= */
 /* ===================================================== */
 
-/* NOTE: Will be added later */
-
 /**
  * struct environment - structure for environment variables and arguments
  * @env: environment variables
  * @argv: arguments
  * @argc: argument count
+ * @token_arr: array of tokens (cur command and its argument)
+ * @last_exit_status: last exit status
  * Description: This structure holds the environment variables and
  * arguments for the shell
  * it is made to unify the function signutures for the builtins function
@@ -66,8 +66,16 @@ typedef struct environment
 	char **env;
 	char **argv;
 	int argc;
+	char **token_arr;
+	int last_exit_status;
 	/* NOTE: add more members as needed */
 } env_t;
+
+typedef struct builtin_enum
+{
+	char *builtin;
+	int (*func)(env_t *env);
+} builtin_t;
 
 /* ===================================================== */
 /* ===================== PROTOTYPES ==================== */
@@ -96,9 +104,13 @@ int _puts(char *str);
 int _puts_fd(char *str, int fd);
 
 /* EXECUTE COMMANDS functions - exec_lib.c */
-void execute_command(char **args, char **env, char *);
+void execute_command(env_t *env);
 int exitcheck(char **s, char *filename);
 int printenv(char **s, char *file_name, char **env);
+
+/* BUILTIN functions - builtin_lib_{0}.c */
+int builtin_exit(env_t *env);
+int builtin_env(env_t *env);
 
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
@@ -106,6 +118,9 @@ char *get_path(char *command, char **env);
 
 /* ENVIROMENT functions - env_lib.c */
 char *_getenv(char *name, char **env);
+
+/* BUILTIN Mux function - builtin_mux.c */
+int (*builtin_mux(char *builtin))(env_t *env);
 
 /* ERROR functions - error_lib.c */
 void exit_error(char *file_name, int line_number, char *exc, char *msg,
