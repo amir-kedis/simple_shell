@@ -1,4 +1,5 @@
 #include "hsh.h"
+#include "list.h"
 
 /**
  * builtin_exit - builtin exit function
@@ -45,14 +46,10 @@ int builtin_exit(env_t *env)
  */
 int builtin_env(env_t *env)
 {
-	int i;
+	if (env->env_list == NULL)
+		return (-1);
 
-	i = 0;
-	while (env->env[i] != NULL)
-	{
-		_puts(env->env[i]);
-		_puts("\n");
-		i++;
-	}
+	list_print(env->env_list);
+
 	return (0);
 }

@@ -44,3 +44,22 @@ char **list_to_array(list_t *head)
 	str_array[i] = NULL;
 	return (str_array);
 }
+
+/**
+ * array_to_list - convert an array of strings to a list
+ * @array: array of strings
+ * Return: pointer to head of list
+ */
+list_t *array_to_list(char **array)
+{
+	list_t *head;
+	int i;
+
+	head = NULL;
+	for (i = 0; array[i] != NULL; i++)
+	{
+		list_push(&head, array[i]);
+	}
+
+	return (head);
+}

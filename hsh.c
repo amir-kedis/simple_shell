@@ -52,13 +52,15 @@ void hsh(env_t *env)
 
 int main(int argc, char **argv, char **env)
 {
-	env_t _env = {NULL, NULL, -1, NULL, 0};
+	env_t _env = {NULL, NULL, NULL, -1, NULL, 0};
 
 	_env.argv = argv;
 	_env.env = env;
 	_env.argc = argc;
+	_env.env_list = array_to_list(env);
 
 	hsh(&_env);
+	list_free(&(_env.env_list));
 	return (EXIT_SUCCESS);
 }
 
