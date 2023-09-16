@@ -25,7 +25,8 @@ void execute_command(env_t *env)
 	cmd_path = get_path(env->token_arr[0], env->env);
 	if (cmd_path == NULL)
 	{
-		exit_error(env->argv[0], 1, env->token_arr[0], "not found", 127, NULL);
+		exit_error(env->argv[0], 1, env->token_arr[0], "not found", 127, NULL,
+							 env);
 		return;
 	}
 	pid = fork();
@@ -33,7 +34,7 @@ void execute_command(env_t *env)
 	{
 		if (execve(cmd_path, env->token_arr, env->env) == -1)
 		{
-			exit_error(env->argv[0], 1, "", "", 127, NULL);
+			exit_error(env->argv[0], 1, "", "", 127, NULL, env);
 			free(cmd_path);
 			return;
 		}

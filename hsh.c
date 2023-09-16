@@ -61,6 +61,7 @@ int main(int argc, char **argv, char **env)
 
 	hsh(&_env);
 	list_free(&(_env.env_list));
+	exit(_env.last_exit_status);
 	return (EXIT_SUCCESS);
 }
 

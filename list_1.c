@@ -63,3 +63,61 @@ list_t *array_to_list(char **array)
 
 	return (head);
 }
+
+/**
+ * list_find_node_starting_with - find a node starting with a string
+ * @head: pointer to head of list
+ * @str: string to find
+ * Return: pointer to node if found, NULL if not found
+ */
+list_t *list_find_node_starting_with(list_t *head, char *str)
+{
+	list_t *cur;
+
+	cur = head;
+	while (cur != NULL)
+	{
+		if (_strncmp(cur->str, str, _strlen(str)) == 0)
+			return (cur);
+		cur = cur->next;
+	}
+
+	return (NULL);
+}
+
+/**
+ * list_delete_node - delete a node from a list
+ * @head: pointer to head of list
+ * @node: node to delete
+ *  Return: 1 if success, 0 if failure
+ */
+int list_delete_node(list_t **head, list_t *node)
+{
+	list_t *cur;
+
+	if (*head == NULL)
+		return (0);
+
+	if (*head == node)
+	{
+		*head = node->next;
+		free(node->str);
+		free(node);
+		return (1);
+	}
+
+	cur = *head;
+	while (cur->next != NULL)
+	{
+		if (cur->next == node)
+		{
+			cur->next = node->next;
+			free(node->str);
+			free(node);
+			return (1);
+		}
+		cur = cur->next;
+	}
+
+	return (0);
+}
