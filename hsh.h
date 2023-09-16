@@ -126,6 +126,7 @@ int printenv(char **s, char *file_name, char **env);
 int builtin_exit(env_t *env);
 int builtin_env(env_t *env);
 int builtin_setenv(env_t *env);
+int builtin_unsetenv(env_t *env);
 
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);

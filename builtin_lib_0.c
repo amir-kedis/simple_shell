@@ -105,3 +105,31 @@ int builtin_setenv(env_t *env)
 	}
 	return (0);
 }
+
+/**
+ * builtin_unsetenv - builtin unsetenv function
+ * @env: environment
+ * Return: exit code
+ */
+int builtin_unsetenv(env_t *env)
+{
+	char *key;
+	list_t *node = NULL;
+
+	if (env->token_arr[1] == NULL)
+	{
+		exit_error(env->argv[0], 1, "unsetenv", "Too few arguments", 2, NULL);
+		return (0);
+	}
+
+	key = env->token_arr[1];
+
+	if (env->env_list == NULL)
+		return (0);
+
+	node = list_find_node_starting_with(env->env_list, key);
+
+	if (node != NULL)
+		list_delete_node(&(env->env_list), node);
+	return (0);
+}
