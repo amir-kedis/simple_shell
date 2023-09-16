@@ -1,6 +1,60 @@
 #include "hsh.h"
 #include "list.h"
+/**
+* mycd - Change the current working directory
+* @env: Pointer to the environment structure
+* Return: 0 on success, non-zero on failure
+*/
+int mycd(env_t *env)
+{
+	char *curenv, *homedir, buffer[BUF_SIZE];
+	int chd;
 
+	s = getcwd(buffer, BUF_SIZE);
+	if (!s)
+		_puts("??");
+	if (! env->token_arr[1] == NULL)
+	{
+		homedir = _getenv(env, "HOME=");
+		if (!homedir)
+		{
+			homedir = _getenv(env, "PWD=");
+			if (homedir)
+				chd = chdir(homedir);
+			else
+				chd = chdir("/");
+		}
+		else
+			chd = chdir(homedir);
+	}
+	else if (_strcmp(env->token_arr[1], "-") == 0)
+	{
+		homedir = _getenv(env, "PWD=");
+		if (!homedir)
+		{
+			_puts(s);
+			_putchar('\n');
+			return (1);
+		}
+		else
+		{
+			_puts(homedir);
+			_putchar('\n');
+			chd = chdir(homedir);
+		}
+	}
+	else
+		chd = chdir(env->token_arr[1]);
+	if (chd == -1)
+	{
+		_/* TODO print error with msg cannot cd to*/
+	}
+	else
+	{
+		/*set env of OLDPWD to PWD
+		 * set env of PWD to CWD*/
+	}
+}
 /**
  * builtin_exit - builtin exit function
  * @env: environment

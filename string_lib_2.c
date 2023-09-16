@@ -105,3 +105,18 @@ int _strncmp(char *s1, char *s2, int n)
 
 	return (s1[i] - s2[i]);
 }
+/**
+ *starts_with - finds if string starts with starting
+ * @string: big string
+ * @starting: string to find
+ * Return: the last char of string or NULL
+ */
+char *starts_with(const char *string, const char *starting)
+{
+	while (*starting)
+	{
+		if (*starting++ != *string++)
+			return (NULL);
+	}
+	return ((char *)string);
+}
