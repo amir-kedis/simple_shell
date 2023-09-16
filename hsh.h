@@ -64,6 +64,7 @@ extern char **environ;
 typedef struct environment
 {
 	char **env;
+	list_t *env_list;
 	char **argv;
 	int argc;
 	char **token_arr;
@@ -89,7 +90,6 @@ typedef struct builtin_enum
 /* ===================================================== */
 
 /* MAIN hsh functions - hsh.c */
-/* FIXME: this function prototype is not final yet */
 void hsh(env_t *env);
 
 /* STRING functions - string_lib_{0,1}.c */
@@ -111,6 +111,7 @@ int _puts(char *str);
 int _puts_fd(char *str, int fd);
 /*parcing funcs*/
 int allocate(char **s, size_t *startlen, size_t);
+
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(env_t *env);
 int exitcheck(char **s, char *filename);
