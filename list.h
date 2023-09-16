@@ -25,5 +25,6 @@ void list_free(list_t **head);
 list_t *list_get_node(list_t *head, unsigned int index);
 char **list_to_array(list_t *head);
 list_t *array_to_list(char **array);
+list_t *list_find_node_starting_with(list_t *head, char *str);
 
 #endif

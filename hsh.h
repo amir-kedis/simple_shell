@@ -106,6 +106,7 @@ char **copy_str_array(char **str_array);
 void free_str_array(char **str_array);
 int is_delim(char c, char *delim);
 char *_strtok(char *str, char *delim);
+int _strncmp(char *s1, char *s2, int n);
 
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
@@ -124,6 +125,7 @@ int printenv(char **s, char *file_name, char **env);
 /* BUILTIN functions - builtin_lib_{0}.c */
 int builtin_exit(env_t *env);
 int builtin_env(env_t *env);
+int builtin_setenv(env_t *env);
 
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);

@@ -85,3 +85,23 @@ char *_strtok(char *str, char *delim)
 	next = NULL;
 	return (token);
 }
+
+/**
+ * _strncmp - compare two strings
+ * @s1: first string
+ * @s2: second string
+ * @n: number of characters to compare
+ * Return: 0 if strings are equal, otherwise difference between first
+ */
+int _strncmp(char *s1, char *s2, int n)
+{
+	int i;
+
+	for (i = 0; i < n && s1[i] == s2[i]; i++)
+		if (s1[i] == '\0')
+			return (0);
+	if (i == n)
+		return (0);
+
+	return (s1[i] - s2[i]);
+}

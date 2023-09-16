@@ -7,8 +7,10 @@
  */
 int (*builtin_mux(char *builtin))(env_t *env)
 {
-	builtin_t builtin_arr[] = {
-			{"exit", builtin_exit}, {"env", builtin_env}, {NULL, NULL}};
+	builtin_t builtin_arr[] = {{"exit", builtin_exit},
+														 {"env", builtin_env},
+														 {"setenv", builtin_setenv},
+														 {NULL, NULL}};
 	int i;
 
 	i = 0;

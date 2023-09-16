@@ -63,3 +63,24 @@ list_t *array_to_list(char **array)
 
 	return (head);
 }
+
+/**
+ * list_push - add a node to the end of a list
+ * @head: pointer to head of list
+ * @str: string to add to node
+ * Return: pointer to new node
+ */
+list_t *list_find_node_starting_with(list_t *head, char *str)
+{
+	list_t *cur;
+
+	cur = head;
+	while (cur != NULL)
+	{
+		if (_strncmp(cur->str, str, _strlen(str)) == 0)
+			return (cur);
+		cur = cur->next;
+	}
+
+	return (NULL);
+}
