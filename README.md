@@ -7,6 +7,8 @@ This is a simple shell project for ALX Software Engineering. It is a simple UNIX
 * **Amir Kedis** 
 
 ## TODOS:
+- [ ] Seperate exit and print error function
+- [ ] Fix memory leaks
 
 ## Allowed Functions and System Calls
 | Function  | Header        |

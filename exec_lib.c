@@ -43,7 +43,7 @@ void execute_command(env_t *env)
 		perror("Error forking");
 	else /* parent process */
 	{ /* clang-format off */
-		do {/* clang-format on */
+		do {	 /* clang-format on */
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		free(cmd_path);
@@ -73,7 +73,7 @@ char *get_path(char *command, char **env)
 	if (path == NULL || path[0] == '\0' || path[0] == '\n')
 		return (NULL);
 
-	token = strtok(path, ":");
+	token = _strtok(path, ":");
 	while (token != NULL)
 	{
 		full_path = malloc(sizeof(char) * (_strlen(token) + _strlen(command) + 2));
@@ -90,7 +90,7 @@ char *get_path(char *command, char **env)
 		}
 
 		free(full_path);
-		token = strtok(NULL, ":");
+		token = _strtok(NULL, ":");
 	}
 
 	free(path);

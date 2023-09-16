@@ -23,11 +23,11 @@ void hsh(env_t *env)
 		read_count = custom_getline(&line, &len, stdin);
 		if (read_count != -1)
 		{
-			word = strtok(line, DILIM);
+			word = _strtok(line, DILIM);
 			while (word != NULL)
 			{
 				list_push(&tokens, word);
-				word = strtok(NULL, DILIM);
+				word = _strtok(NULL, DILIM);
 			}
 			tokens_array = list_to_array(tokens);
 			env->token_arr = tokens_array;
