@@ -53,6 +53,7 @@ extern char **environ;
 /**
  * struct environment - structure for environment variables and arguments
  * @env: environment variables
+ * @env_list: environment variables in a linked list
  * @argv: arguments
  * @argc: argument count
  * @token_arr: array of tokens (cur command and its argument)
@@ -103,12 +104,15 @@ int custom_atoi(const char *str);
 int isnumerical(const char *str);
 char **copy_str_array(char **str_array);
 void free_str_array(char **str_array);
+int is_delim(char c, char *delim);
+char *_strtok(char *str, char *delim);
 
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _putchar_fd(char c, int fd);
 int _puts(char *str);
 int _puts_fd(char *str, int fd);
+
 /*parcing funcs*/
 int allocate(char **s, size_t *startlen, size_t);
 

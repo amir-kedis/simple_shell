@@ -22,10 +22,10 @@ char *_getenv(char *name, char **env)
 
 	for (i = 0; env_copy[i] != NULL; i++)
 	{
-		token = strtok(env_copy[i], "=");
+		token = _strtok(env_copy[i], "=");
 		if (_strcmp(token, name) == 0)
 		{
-			value = strtok(NULL, "=");
+			value = _strtok(NULL, "=");
 			if (value == NULL)
 			{
 				free_str_array(env_copy);
