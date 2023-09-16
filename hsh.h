@@ -71,6 +71,13 @@ typedef struct environment
 	/* NOTE: add more members as needed */
 } env_t;
 
+/**
+ * struct builtin_enum - structure for builtin functions
+ * @builtin: builtin name
+ * @func: builtin function
+ * Description: This structure holds the builtin functions
+ * and their names
+ */
 typedef struct builtin_enum
 {
 	char *builtin;
@@ -102,7 +109,8 @@ int _putchar(char c);
 int _putchar_fd(char c, int fd);
 int _puts(char *str);
 int _puts_fd(char *str, int fd);
-
+/*parcing funcs*/
+int allocate(char **s, size_t *startlen, size_t);
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(env_t *env);
 int exitcheck(char **s, char *filename);

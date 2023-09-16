@@ -5,7 +5,7 @@
 /**
  * exitcheck - Custom exit function with optional messages.
  * @s: An array of strings for optional exit messages.
- *
+ * @filename: name of the file
  * Return: exit code.
  */
 int exitcheck(char **s, char *filename)

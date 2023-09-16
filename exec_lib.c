@@ -14,31 +14,25 @@ void execute_command(env_t *env)
 	int status;
 	char *cmd_path;
 
-	(void)env;
 	if (env->token_arr[0] == NULL || env->token_arr[0][0] == '\0' ||
 			env->token_arr[0][0] == '\n')
 		return;
-
 	if (builtin_mux(env->token_arr[0]) != NULL)
 	{
 		builtin_mux(env->token_arr[0])(env);
 		return;
 	}
 	cmd_path = get_path(env->token_arr[0], env->env);
-
 	if (cmd_path == NULL)
 	{
 		exit_error(env->argv[0], 1, env->token_arr[0], "not found", 127, NULL);
 		return;
 	}
-
 	pid = fork();
 	if (pid == 0) /* child process */
 	{
 		if (execve(cmd_path, env->token_arr, env->env) == -1)
 		{
-			/*	perror("./hsh: 1");
-				exit(127);*/
 			exit_error(env->argv[0], 1, "", "", 127, NULL);
 			free(cmd_path);
 			return;
@@ -48,10 +42,8 @@ void execute_command(env_t *env)
 	else if (pid == -1) /* error forking */
 		perror("Error forking");
 	else /* parent process */
-	{
-		/* clang-format off */
-		do {
-			/* clang-format on */
+	{ /* clang-format off */
+		do {/* clang-format on */
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		free(cmd_path);

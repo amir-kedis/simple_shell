@@ -38,6 +38,11 @@ int builtin_exit(env_t *env)
 	return (-1);
 }
 
+/**
+ * builtin_env - builtin env function
+ * @env: environment
+ * Return: exit code
+ */
 int builtin_env(env_t *env)
 {
 	int i;
