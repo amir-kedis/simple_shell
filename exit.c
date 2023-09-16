@@ -1,10 +1,13 @@
-#include"hsh.h"
+#include "hsh.h"
+
+/* FIXME: Code in this file is moved to builtin_lib_0.c */
+/* DLELETE ME */
 /**
-* exitcheck - Custom exit function with optional messages.
-* @s: An array of strings for optional exit messages.
-* @filename: string for filename
-* Return: exit code.
-*/
+ * exitcheck - Custom exit function with optional messages.
+ * @s: An array of strings for optional exit messages.
+ * @filename: name of the file
+ * Return: exit code.
+ */
 int exitcheck(char **s, char *filename)
 {
 	int exitcode;
@@ -27,7 +30,7 @@ int exitcheck(char **s, char *filename)
 		}
 		else
 		{
-			 exit_error(filename, 1, "exit", "Illegal number", 2, s[1]);
+			exit_error(filename, 1, "exit", "Illegal number", 2, s[1]);
 		}
 	}
 	return (-1);

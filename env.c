@@ -1,11 +1,17 @@
-#include"hsh.h"
+#include "hsh.h"
+
+/* FIXME: Code in this file is moved to builtin_lib_0.c */
+/* DLELETE ME */
 /*
-* printenv - Write environment variables to a file
-* @s: File descriptor for the output file
-* @file_name: Name of the file to write to
-* @env: Array of environment variables (null-terminated)
-* Return: Number of variables written, or -1 on error
-*/
+ * NOTE: this implementation will probally change because of set and unset env
+ */
+/**
+ * printenv - prints the environment
+ * @s: An array of strings for optional exit messages.
+ * @file_name: name of the file
+ * @env: environment
+ * Return: exit code.
+ */
 int printenv(char **s, char *file_name, char **env)
 {
 	int i;

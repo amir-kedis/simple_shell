@@ -42,16 +42,47 @@
 #define PROMPT "$ "
 #define DILIM " \t\r\n\a"
 
-#define TEST_FILE_MODE 0  
-#define INTERACTIVE_MODE 0
+#define TEST_FILE_MODE 0
+
 /*environment variable*/
 extern char **environ;
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
 /* ===================================================== */
 
-/* NOTE: Will be added later */
-/* TODO: Add an envirmoent struct */
+/**
+ * struct environment - structure for environment variables and arguments
+ * @env: environment variables
+ * @argv: arguments
+ * @argc: argument count
+ * @token_arr: array of tokens (cur command and its argument)
+ * @last_exit_status: last exit status
+ * Description: This structure holds the environment variables and
+ * arguments for the shell
+ * it is made to unify the function signutures for the builtins function
+ */
+typedef struct environment
+{
+	char **env;
+	char **argv;
+	int argc;
+	char **token_arr;
+	int last_exit_status;
+	/* NOTE: add more members as needed */
+} env_t;
+
+/**
+ * struct builtin_enum - structure for builtin functions
+ * @builtin: builtin name
+ * @func: builtin function
+ * Description: This structure holds the builtin functions
+ * and their names
+ */
+typedef struct builtin_enum
+{
+	char *builtin;
+	int (*func)(env_t *env);
+} builtin_t;
 
 /* ===================================================== */
 /* ===================== PROTOTYPES ==================== */
@@ -59,7 +90,7 @@ extern char **environ;
 
 /* MAIN hsh functions - hsh.c */
 /* FIXME: this function prototype is not final yet */
-void hsh(char **env, char *);
+void hsh(env_t *env);
 
 /* STRING functions - string_lib_{0,1}.c */
 unsigned int _strlen(char *str);
@@ -81,9 +112,14 @@ int _puts_fd(char *str, int fd);
 /*parcing funcs*/
 int allocate(char **s, size_t *startlen, size_t);
 /* EXECUTE COMMANDS functions - exec_lib.c */
-void execute_command(char **args, char **env, char *);
+void execute_command(env_t *env);
 int exitcheck(char **s, char *filename);
 int printenv(char **s, char *file_name, char **env);
+
+/* BUILTIN functions - builtin_lib_{0}.c */
+int builtin_exit(env_t *env);
+int builtin_env(env_t *env);
+
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
 char *get_path(char *command, char **env);
@@ -91,7 +127,11 @@ char *get_path(char *command, char **env);
 /* ENVIROMENT functions - env_lib.c */
 char *_getenv(char *name, char **env);
 
+/* BUILTIN Mux function - builtin_mux.c */
+int (*builtin_mux(char *builtin))(env_t *env);
+
 /* ERROR functions - error_lib.c */
-void exit_error(char *file_name, int line_number, char *exc, char *msg, int exit_code, char *msgarg);
+void exit_error(char *file_name, int line_number, char *exc, char *msg,
+								int exit_code, char *msgarg);
 
 #endif

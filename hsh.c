@@ -4,14 +4,10 @@
 /**
  * hsh - Main shell loop function
  * @env: environment variables
- * @ob_name: executable name
  * Return: void
  */
-void hsh(char **env, char *ob_name)
+void hsh(env_t *env)
 {
-	/* TODO: implement and adjust prototype as appropriate */
-	/* this is an ecpermiental function */
-	/* that prints the prompt and prints back the tokens that is gets */
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read_count;
@@ -22,10 +18,8 @@ void hsh(char **env, char *ob_name)
 	/* clang-format off */
 	do {
 		/* clang-format on */
-		/* FIXME: this condition is temprorary */
-#if INTERACTIVE_MODE
-		_puts(PROMPT);
-#endif
+		if (isatty(STDIN_FILENO))
+			_puts(PROMPT);
 		read_count = custom_getline(&line, &len, stdin);
 		if (read_count != -1)
 		{
@@ -36,7 +30,8 @@ void hsh(char **env, char *ob_name)
 				word = strtok(NULL, DILIM);
 			}
 			tokens_array = list_to_array(tokens);
-			execute_command(tokens_array, env, ob_name);
+			env->token_arr = tokens_array;
+			execute_command(env);
 			free_str_array(tokens_array);
 			tokens_array = NULL;
 			list_free(&tokens);
@@ -57,9 +52,13 @@ void hsh(char **env, char *ob_name)
 
 int main(int argc, char **argv, char **env)
 {
-	UNUSED(argc);
-	UNUSED(argv);
-	hsh(env, argv[0]);
+	env_t _env = {NULL, NULL, -1, NULL, 0};
+
+	_env.argv = argv;
+	_env.env = env;
+	_env.argc = argc;
+
+	hsh(&_env);
 	return (EXIT_SUCCESS);
 }
 
