@@ -65,10 +65,10 @@ list_t *array_to_list(char **array)
 }
 
 /**
- * list_push - add a node to the end of a list
+ * list_find_node_starting_with - find a node starting with a string
  * @head: pointer to head of list
- * @str: string to add to node
- * Return: pointer to new node
+ * @str: string to find
+ * Return: pointer to node if found, NULL if not found
  */
 list_t *list_find_node_starting_with(list_t *head, char *str)
 {

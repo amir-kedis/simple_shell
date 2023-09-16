@@ -140,6 +140,6 @@ int (*builtin_mux(char *builtin))(env_t *env);
 
 /* ERROR functions - error_lib.c */
 void exit_error(char *file_name, int line_number, char *exc, char *msg,
-								int exit_code, char *msgarg);
+								int exit_code, char *msgarg, env_t *env);
 
 #endif

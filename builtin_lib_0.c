@@ -23,7 +23,10 @@ int builtin_exit(env_t *env)
 		}
 
 		if (isnumerical(s[1]) == -1)
-			exit_error(env->argv[0], 1, "exit", "Illegal number", 2, s[1]);
+		{
+			exit_error(env->argv[0], 1, "exit", "Illegal number", 2, s[1], env);
+			exit(2);
+		}
 		exitcode = custom_atoi(s[1]);
 		if (exitcode >= 0 && exitcode <= 255)
 		{
@@ -38,7 +41,7 @@ int builtin_exit(env_t *env)
 		}
 		else
 		{
-			exit_error(env->argv[0], 1, "exit", "Illegal number", 2, s[1]);
+			exit_error(env->argv[0], 1, "exit", "Illegal number", 2, s[1], env);
 		}
 	}
 	return (-1);
@@ -72,7 +75,7 @@ int builtin_setenv(env_t *env)
 
 	if (env->token_arr[1] == NULL || env->token_arr[2] == NULL)
 	{
-		exit_error(env->argv[0], 1, "setenv", "Too few arguments", 2, NULL);
+		exit_error(env->argv[0], 1, "setenv", "Too few arguments", 2, NULL, env);
 		return (0);
 	}
 
@@ -118,7 +121,7 @@ int builtin_unsetenv(env_t *env)
 
 	if (env->token_arr[1] == NULL)
 	{
-		exit_error(env->argv[0], 1, "unsetenv", "Too few arguments", 2, NULL);
+		exit_error(env->argv[0], 1, "unsetenv", "Too few arguments", 2, NULL, env);
 		return (0);
 	}
 
