@@ -23,6 +23,7 @@ void hsh(env_t *env)
 		read_count = custom_getline(&line, &len, stdin);
 		if (read_count != -1)
 		{
+			remove_comments(line);
 			word = _strtok(line, DILIM);
 			while (word != NULL)
 			{

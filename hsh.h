@@ -128,6 +128,9 @@ int builtin_env(env_t *env);
 int builtin_setenv(env_t *env);
 int builtin_unsetenv(env_t *env);
 
+/* COMMAND CHIANING AND COMMENTS functions - cmd_chain_lib.c */
+void remove_comments(char *line);
+
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
 char *get_path(char *command, char **env);
