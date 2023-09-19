@@ -11,9 +11,20 @@
 int addAlias(AliasList *aliasList, char *name, char *command)
 {
 	Alias *newAlias;
+	int i;
 	if (!aliasList)
 		initAliasList(&aliasList);
 
+	for (i = 0; i < aliasList->count; i++)
+	{
+		if (_strcmp(aliasList->aliases[i].name, name) == 0)
+		{
+			aliasList->aliases[i].command = _strdup(command);
+			return (1);
+		}
+		else if (_strcmp(aliasList->aliases[i].name, command) == 0)
+			command = aliasList->aliases[i].command;
+	}
 	aliasList->count++;
 	aliasList->aliases = realloc(aliasList->aliases, sizeof(Alias) * aliasList->count);
 	if (!aliasList->aliases)
@@ -65,7 +76,7 @@ void printaliasesbyname(AliasList *aliaslist, char *name)
 	int i;
 	for (i = 0; i < aliaslist->count; i++)
 	{
-		if (aliaslist->aliases[i].name == name)
+		if (_strcmp(aliaslist->aliases[i].name, name) == 0)
 		{
 			_puts(aliaslist->aliases[i].name);
                 	_puts("='");

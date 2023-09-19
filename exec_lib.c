@@ -13,6 +13,7 @@ void execute_command(env_t *env)
 	pid_t pid;
 	int status;
 	char *cmd_path;
+	char *alias;
 
 	if (env->token_arr[0] == NULL || env->token_arr[0][0] == '\0' ||
 			env->token_arr[0][0] == '\n')
@@ -22,9 +23,13 @@ void execute_command(env_t *env)
 		builtin_mux(env->token_arr[0])(env);
 		return;
 	}
+	alias = excualias(env, env->token_arr[0]);
+	if (alias)
+		env->token_arr[0] = alias;
 	cmd_path = get_path(env->token_arr[0], env->env);
 	if (cmd_path == NULL)
 	{
+
 		exit_error(env->argv[0], 1, env->token_arr[0], "not found", 127, NULL,
 							 env);
 		return;

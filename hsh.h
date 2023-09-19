@@ -168,5 +168,6 @@ int addAlias(AliasList *aliasList, char *name, char *command);
 void printalias(AliasList *aliaslist);
 int myalias(env_t *env);
 void cleanupAliases(AliasList *aliasList);
+char * excualias(env_t *env, char *cmd);
 void initAliasList(AliasList **aliasList);
 #endif
