@@ -105,3 +105,29 @@ int _strncmp(char *s1, char *s2, int n)
 
 	return (s1[i] - s2[i]);
 }
+
+/**
+ * _str_to_word_array - splits a string into words
+ * @str: string to split
+ * @delim: delimiters
+ * Return: pointer to array of words
+ */
+char **_str_to_word_array(char *str, char *delim)
+{
+	char **array = NULL;
+	char *token;
+	int i = 0;
+
+	token = _strtok(str, delim);
+	while (token != NULL)
+	{
+		array = _realloc(array, i * sizeof(char *), (i + 1) * sizeof(char *));
+		array[i] = _strdup(token);
+		token = _strtok(NULL, delim);
+		i++;
+	}
+	array = _realloc(array, i * sizeof(char *), (i + 1) * sizeof(char *));
+	array[i] = NULL;
+
+	return (array);
+}
