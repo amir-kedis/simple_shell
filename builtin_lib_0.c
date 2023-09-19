@@ -7,18 +7,18 @@
 */
 int mycd(env_t *env)
 {
-	char *curenv, *homedir, buffer[BUF_SIZE];
+	char *curenv, *homedir, buffer[BUF_SIZE], *cderr;
 	int chd;
 
-	s = getcwd(buffer, BUF_SIZE);
-	if (!s)
+	curenv = getcwd(buffer, BUF_SIZE);
+	if (!curenv)
 		_puts("??");
-	if (! env->token_arr[1] == NULL)
+	if (env->token_arr[1] == NULL)
 	{
-		homedir = _getenv(env, "HOME=");
+		homedir = _getenvvar(env, "HOME=");
 		if (!homedir)
 		{
-			homedir = _getenv(env, "PWD=");
+			homedir = _getenvvar(env, "PWD=");
 			if (homedir)
 				chd = chdir(homedir);
 			else
@@ -29,31 +29,37 @@ int mycd(env_t *env)
 	}
 	else if (_strcmp(env->token_arr[1], "-") == 0)
 	{
-		homedir = _getenv(env, "PWD=");
+		homedir = _getenvvar(env, "OLDPWD=");
 		if (!homedir)
 		{
-			_puts(s);
-			_putchar('\n');
+			_puts(curenv);
+			_puts("\n");
 			return (1);
 		}
 		else
 		{
 			_puts(homedir);
-			_putchar('\n');
+			_puts("\n");
 			chd = chdir(homedir);
 		}
 	}
 	else
 		chd = chdir(env->token_arr[1]);
+	cderr = malloc(2 + _strlen("can't cd to ") + _strlen(env->token_arr[1]));
+	if (!cderr)
+		return (-1);
+	_strcpy("can't cd to \0", cderr);
+	_strcat(cderr, env->token_arr[1]);
 	if (chd == -1)
 	{
-		_/* TODO print error with msg cannot cd to*/
+		 exit_error(env->argv[0], 1, "cd", cderr, 2, NULL,env);
 	}
 	else
 	{
-		/*set env of OLDPWD to PWD
-		 * set env of PWD to CWD*/
+		_setenvvar(env, "OLDPWD=", _getenvvar(env, "PWD="));
+		_setenvvar(env, "PWD=", getcwd(buffer,1024));
 	}
+	return (1);
 }
 /**
  * builtin_exit - builtin exit function

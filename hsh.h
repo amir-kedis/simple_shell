@@ -107,7 +107,7 @@ void free_str_array(char **str_array);
 int is_delim(char c, char *delim);
 char *_strtok(char *str, char *delim);
 int _strncmp(char *s1, char *s2, int n);
-
+char *starts_with(const char *haystack, const char *needle);
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _putchar_fd(char c, int fd);
@@ -127,11 +127,13 @@ int builtin_exit(env_t *env);
 int builtin_env(env_t *env);
 int builtin_setenv(env_t *env);
 int builtin_unsetenv(env_t *env);
-
+int mycd(env_t *env);
+char *_getenvvar(env_t *env, char *name);
+list_t *_getenvvarnode(env_t *env, char *name); 
+int _setenvvar(env_t *env, char *name, char *val);
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
 char *get_path(char *command, char **env);
-
 /* ENVIROMENT functions - env_lib.c */
 char *_getenv(char *name, char **env);
 
@@ -141,5 +143,4 @@ int (*builtin_mux(char *builtin))(env_t *env);
 /* ERROR functions - error_lib.c */
 void exit_error(char *file_name, int line_number, char *exc, char *msg,
 								int exit_code, char *msgarg, env_t *env);
-
 #endif
