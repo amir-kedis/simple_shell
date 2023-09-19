@@ -1,3 +1,4 @@
+
 #ifndef HSH_H
 #define HSH_H
 
@@ -49,7 +50,24 @@ extern char **environ;
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
 /* ===================================================== */
-
+/**
+ * struct Alias - Represents an alias with a name and command.
+ * @name: The alias name.
+ * @command: The alias command.
+ */
+typedef struct {
+    char *name;
+    char *command;
+} Alias;
+/**
+ * struct AliasList - Represents a list of aliases.
+ * @aliases: An array of Alias structures.
+ * @count: The number of aliases in the list.
+ */
+typedef struct {
+    Alias *aliases;
+    int count;
+} AliasList;
 /**
  * struct environment - structure for environment variables and arguments
  * @env: environment variables
@@ -70,6 +88,7 @@ typedef struct environment
 	int argc;
 	char **token_arr;
 	int last_exit_status;
+	AliasList *aliaslist;
 	/* NOTE: add more members as needed */
 } env_t;
 
@@ -85,7 +104,6 @@ typedef struct builtin_enum
 	char *builtin;
 	int (*func)(env_t *env);
 } builtin_t;
-
 /* ===================================================== */
 /* ===================== PROTOTYPES ==================== */
 /* ===================================================== */
@@ -108,6 +126,7 @@ int is_delim(char c, char *delim);
 char *_strtok(char *str, char *delim);
 int _strncmp(char *s1, char *s2, int n);
 char *starts_with(const char *haystack, const char *needle);
+char *_strchr(char *s, char c);
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _putchar_fd(char c, int fd);
@@ -143,4 +162,11 @@ int (*builtin_mux(char *builtin))(env_t *env);
 /* ERROR functions - error_lib.c */
 void exit_error(char *file_name, int line_number, char *exc, char *msg,
 								int exit_code, char *msgarg, env_t *env);
+/*alias funcs*/
+void printaliasesbyname(AliasList *aliaslist, char *name);
+int addAlias(AliasList *aliasList, char *name, char *command);
+void printalias(AliasList *aliaslist);
+int myalias(env_t *env);
+void cleanupAliases(AliasList *aliasList);
+void initAliasList(AliasList **aliasList);
 #endif
