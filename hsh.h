@@ -44,6 +44,10 @@
 
 #define TEST_FILE_MODE 0
 
+#define AND_DELIM 1
+#define OR_DELIM 2
+#define SEMI_DELIM 3
+
 /*environment variable*/
 extern char **environ;
 /* ===================================================== */
@@ -58,6 +62,7 @@ extern char **environ;
  * @argc: argument count
  * @token_arr: array of tokens (cur command and its argument)
  * @last_exit_status: last exit status
+ * @CHAIN_TYPE: type of command chaining
  * Description: This structure holds the environment variables and
  * arguments for the shell
  * it is made to unify the function signutures for the builtins function
@@ -70,6 +75,7 @@ typedef struct environment
 	int argc;
 	char **token_arr;
 	int last_exit_status;
+	int CHAIN_TYPE;
 	/* NOTE: add more members as needed */
 } env_t;
 
@@ -107,6 +113,7 @@ void free_str_array(char **str_array);
 int is_delim(char c, char *delim);
 char *_strtok(char *str, char *delim);
 int _strncmp(char *s1, char *s2, int n);
+char **_str_to_word_array(char *str, char *delim);
 
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
@@ -116,6 +123,9 @@ int _puts_fd(char *str, int fd);
 
 /*parcing funcs*/
 int allocate(char **s, size_t *startlen, size_t);
+
+/* MEMORY functions - mem_lib.c */
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 /* EXECUTE COMMANDS functions - exec_lib.c */
 void execute_command(env_t *env);
@@ -129,7 +139,10 @@ int builtin_setenv(env_t *env);
 int builtin_unsetenv(env_t *env);
 
 /* COMMAND CHIANING AND COMMENTS functions - cmd_chain_lib.c */
+size_t count_commands(char *line);
 void remove_comments(char *line);
+size_t get_command(char **line, size_t *strlen);
+int is_chain_delim(char *str);
 
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);

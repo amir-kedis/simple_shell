@@ -2,7 +2,7 @@
 #include "list.h"
 
 /**
- * hsh - Main shell loop function
+ * hsh - main function for shell
  * @env: environment variables
  * Return: void
  */
@@ -13,18 +13,24 @@ void hsh(env_t *env)
 	ssize_t read_count;
 	char *word;
 	list_t *tokens = NULL;
-	char **tokens_array = NULL;
+	char **tokens_array = NULL, **commands = NULL;
+	int i;
 
 	/* clang-format off */
-	do {
-		/* clang-format on */
+	do { /* clang-format on */
 		if (isatty(STDIN_FILENO))
 			_puts(PROMPT);
 		read_count = custom_getline(&line, &len, stdin);
-		if (read_count != -1)
+		if (read_count == -1)
+			break;
+		remove_comments(line);
+		commands = _str_to_word_array(line, ";");
+		i = 0;
+		while (commands[i])
 		{
-			remove_comments(line);
-			word = _strtok(line, DILIM);
+			tokens = NULL;
+			tokens_array = NULL;
+			word = _strtok(commands[i], DILIM);
 			while (word != NULL)
 			{
 				list_push(&tokens, word);
@@ -36,7 +42,9 @@ void hsh(env_t *env)
 			free_str_array(tokens_array);
 			tokens_array = NULL;
 			list_free(&tokens);
+			i++;
 		}
+		free_str_array(commands);
 	} while (read_count != -1);
 	free(line);
 }
@@ -53,7 +61,7 @@ void hsh(env_t *env)
 
 int main(int argc, char **argv, char **env)
 {
-	env_t _env = {NULL, NULL, NULL, -1, NULL, 0};
+	env_t _env = {NULL, NULL, NULL, -1, NULL, 0, 0};
 
 	_env.argv = argv;
 	_env.env = env;
