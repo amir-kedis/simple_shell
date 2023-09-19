@@ -6,9 +6,9 @@ This is a simple shell project for ALX Software Engineering. It is a simple UNIX
 * **Sarah Kamal** 
 * **Amir Kedis** 
 
-## TODOS:
-- [ ] Seperate exit and print error function
-- [ ] Fix memory leaks
+# TODO: add more info about the project and tasks
+
+# TODO: ADD AUTHORS FILE AND LINK TO IT use this link: https://github.com/moby/moby/blob/master/hack/generate-authors.sh
 
 ## Allowed Functions and System Calls
 | Function  | Header        |
