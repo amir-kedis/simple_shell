@@ -1,5 +1,4 @@
 #include "hsh.h"
-
 /**
  * _getenv - gets an environment variable
  * @name: name of the variable
@@ -8,7 +7,6 @@
  */
 char *_getenv(char *name, char **env)
 {
-	/* TODO: may have to change gow it works after changing env hnadling */
 	int i;
 	char *token;
 	char *value;
@@ -19,7 +17,6 @@ char *_getenv(char *name, char **env)
 		env_copy = copy_str_array(__environ);
 	else
 		env_copy = copy_str_array(env);
-
 	for (i = 0; env_copy[i] != NULL; i++)
 	{
 		token = _strtok(env_copy[i], "=");

@@ -10,7 +10,7 @@ unsigned int _strlen(char *str)
 	unsigned int i;
 
 	i = 0;
-	while (*str != '\0')
+	while (str && *str != '\0')
 	{
 		i++;
 		str++;
@@ -51,10 +51,10 @@ char *_strcat(char *dest, char *src)
 {
 	char *cur = dest;
 
-	while (*cur != '\0')
+	while (cur && *cur != '\0')
 		cur++;
 
-	while (*src != '\0')
+	while (src && *src != '\0')
 	{
 		*cur = *src;
 		cur++;

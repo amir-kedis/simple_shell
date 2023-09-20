@@ -11,6 +11,8 @@ int (*builtin_mux(char *builtin))(env_t *env)
 														 {"env", builtin_env},
 														 {"setenv", builtin_setenv},
 														 {"unsetenv", builtin_unsetenv},
+														 {"cd", mycd},
+														 {"alias", myalias},
 														 {NULL, NULL}};
 	int i;
 

@@ -1,3 +1,4 @@
+
 #ifndef HSH_H
 #define HSH_H
 
@@ -54,7 +55,24 @@ extern char **environ;
 /* ===================================================== */
 /* ===================== STRUCTS ======================= */
 /* ===================================================== */
-
+/**
+ * struct Alias - Represents an alias with a name and command.
+ * @name: The alias name.
+ * @command: The alias command.
+ */
+typedef struct {
+    char *name;
+    char *command;
+} Alias;
+/**
+ * struct AliasList - Represents a list of aliases.
+ * @aliases: An array of Alias structures.
+ * @count: The number of aliases in the list.
+ */
+typedef struct {
+    Alias *aliases;
+    int count;
+} AliasList;
 /**
  * struct environment - structure for environment variables and arguments
  * @env: environment variables
@@ -76,8 +94,12 @@ typedef struct environment
 	int argc;
 	char **token_arr;
 	int last_exit_status;
+
 	/* TODO: remove chaing type, don't foget to remoce it from doc and init */
 	int CHAIN_TYPE;
+
+	AliasList *aliaslist;
+	
 	/* NOTE: add more members as needed */
 } env_t;
 
@@ -93,7 +115,6 @@ typedef struct builtin_enum
 	char *builtin;
 	int (*func)(env_t *env);
 } builtin_t;
-
 /* ===================================================== */
 /* ===================== PROTOTYPES ==================== */
 /* ===================================================== */
@@ -117,6 +138,8 @@ char *_strtok(char *str, char *delim);
 int _strncmp(char *s1, char *s2, int n);
 char **_str_to_word_array(char *str, char *delim);
 
+char *starts_with(const char *haystack, const char *needle);
+char *_strchr(char *s, char c);
 /* PRINTING functions print_lib.c */
 int _putchar(char c);
 int _putchar_fd(char c, int fd);
@@ -149,11 +172,15 @@ void remove_comments(char *line);
 size_t get_command(char **line, size_t *strlen);
 int is_chain_delim(char *str);
 
+int mycd(env_t *env);
+char *_getenvvar(env_t *env, char *name);
+list_t *_getenvvarnode(env_t *env, char *name); 
+int _setenvvar(env_t *env, char *name, char *val);
+void freeall(env_t *env);
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
 /* TODO: move to exec_lib.c */
 char *get_path(char *command, char **env);
-
 /* ENVIROMENT functions - env_lib.c */
 char *_getenv(char *name, char **env);
 
@@ -163,5 +190,12 @@ int (*builtin_mux(char *builtin))(env_t *env);
 /* ERROR functions - error_lib.c */
 void exit_error(char *file_name, int line_number, char *exc, char *msg,
 								int exit_code, char *msgarg, env_t *env);
-
+/*alias funcs*/
+void printaliasesbyname(AliasList *aliaslist, char *name);
+int addAlias(AliasList *aliasList, char *name, char *command);
+void printalias(AliasList *aliaslist);
+int myalias(env_t *env);
+void cleanupAliases(AliasList *aliasList);
+char * excualias(env_t *env, char *cmd);
+void initAliasList(AliasList **aliasList);
 #endif
