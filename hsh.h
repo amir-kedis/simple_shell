@@ -56,22 +56,24 @@ extern char **environ;
 /* ===================== STRUCTS ======================= */
 /* ===================================================== */
 /**
- * struct Alias - Represents an alias with a name and command.
+ * struct alias_item - Represents an alias with a name and command.
  * @name: The alias name.
  * @command: The alias command.
  */
-typedef struct {
-    char *name;
-    char *command;
+typedef struct alias_item
+{
+	char *name;
+	char *command;
 } Alias;
 /**
- * struct AliasList - Represents a list of aliases.
+ * struct alias_list - Represents a list of aliases.
  * @aliases: An array of Alias structures.
  * @count: The number of aliases in the list.
  */
-typedef struct {
-    Alias *aliases;
-    int count;
+typedef struct alias_list
+{
+	Alias *aliases;
+	int count;
 } AliasList;
 /**
  * struct environment - structure for environment variables and arguments
@@ -82,6 +84,8 @@ typedef struct {
  * @token_arr: array of tokens (cur command and its argument)
  * @last_exit_status: last exit status
  * @CHAIN_TYPE: type of command chaining
+ * @aliaslist: list of aliases
+ * @commands: array of commands
  * Description: This structure holds the environment variables and
  * arguments for the shell
  * it is made to unify the function signutures for the builtins function
@@ -99,7 +103,9 @@ typedef struct environment
 	int CHAIN_TYPE;
 
 	AliasList *aliaslist;
-	
+
+	char **commands;
+
 	/* NOTE: add more members as needed */
 } env_t;
 
@@ -164,6 +170,7 @@ int builtin_exit(env_t *env);
 int builtin_env(env_t *env);
 int builtin_setenv(env_t *env);
 int builtin_unsetenv(env_t *env);
+char *create_cd_error(env_t *env);
 
 /* COMMAND CHIANING AND COMMENTS functions - cmd_chain_lib.c */
 /* TODO: remove what is not used any more */
@@ -174,7 +181,7 @@ int is_chain_delim(char *str);
 
 int mycd(env_t *env);
 char *_getenvvar(env_t *env, char *name);
-list_t *_getenvvarnode(env_t *env, char *name); 
+list_t *_getenvvarnode(env_t *env, char *name);
 int _setenvvar(env_t *env, char *name, char *val);
 void freeall(env_t *env);
 /* Reading from files functions */
@@ -196,6 +203,6 @@ int addAlias(AliasList *aliasList, char *name, char *command);
 void printalias(AliasList *aliaslist);
 int myalias(env_t *env);
 void cleanupAliases(AliasList *aliasList);
-char * excualias(env_t *env, char *cmd);
+char *excualias(env_t *env, char *cmd);
 void initAliasList(AliasList **aliasList);
 #endif

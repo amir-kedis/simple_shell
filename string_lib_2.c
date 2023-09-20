@@ -131,18 +131,3 @@ char **_str_to_word_array(char *str, char *delim)
 
 	return (array);
 }
-/**
- *starts_with - finds if string starts with starting
- * @string: big string
- * @starting: string to find
- * Return: the last char of string or NULL
- */
-char *starts_with(const char *string, const char *starting)
-{
-	while (*starting)
-	{
-		if (*starting++ != *string++)
-			return (NULL);
-	}
-	return ((char *)string);
-}

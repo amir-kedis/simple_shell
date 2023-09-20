@@ -29,7 +29,6 @@ void execute_command(env_t *env)
 	cmd_path = get_path(env->token_arr[0], env->env);
 	if (cmd_path == NULL)
 	{
-
 		exit_error(env->argv[0], 1, env->token_arr[0], "not found", 127, NULL,
 							 env);
 		return;
@@ -44,17 +43,12 @@ void execute_command(env_t *env)
 			return;
 		}
 		exit(EXIT_FAILURE);
-	}
-	else if (pid == -1) /* error forking */
-		perror("Error forking");
-	else /* parent process */
-	{ /* clang-format off */
-		do {	 /* clang-format on */
-			waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-		free(cmd_path);
-		env->last_exit_status = WEXITSTATUS(status);
-	}
+	} /* clang-format off */
+	do { /* clang-format on */
+		waitpid(pid, &status, WUNTRACED);
+	} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+	free(cmd_path);
+	env->last_exit_status = WEXITSTATUS(status);
 }
 
 /**

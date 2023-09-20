@@ -17,7 +17,7 @@ void hsh(env_t *env)
 	int i;
 
 	/* clang-format off */
-	do { /* clang-format on */
+	do {
 		if (isatty(STDIN_FILENO))
 			_puts(PROMPT);
 		read_count = custom_getline(&line, &len, stdin);
@@ -29,8 +29,7 @@ void hsh(env_t *env)
 		while (commands[i])
 		{
 			tokens = NULL;
-			tokens_array = NULL;
-			word = _strtok(commands[i], DILIM);
+			word = _strtok(commands[i++], DILIM);
 			while (word != NULL)
 			{
 				list_push(&tokens, word);
@@ -38,15 +37,17 @@ void hsh(env_t *env)
 			}
 			tokens_array = list_to_array(tokens);
 			env->token_arr = tokens_array;
+			list_free(&tokens);
+			free(line);
+			line = NULL;
+			env->commands = commands;
 			execute_command(env);
 			free_str_array(tokens_array);
-			tokens_array = NULL;
-			list_free(&tokens);
-			i++;
-		}
+			tokens_array = NULL; }
 		free_str_array(commands);
 	} while (read_count != -1);
-	free(line);
+	if (line != NULL)
+		free(line);
 }
 
 #if !TEST_FILE_MODE
@@ -61,7 +62,7 @@ void hsh(env_t *env)
 
 int main(int argc, char **argv, char **env)
 {
-	env_t _env = {NULL, NULL, NULL, -1, NULL, 0, 0, NULL};
+	env_t _env = {NULL, NULL, NULL, -1, NULL, 0, 0, NULL, NULL};
 
 	_env.argv = argv;
 	_env.env = env;

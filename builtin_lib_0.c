@@ -1,13 +1,13 @@
 #include "hsh.h"
 #include "list.h"
 /**
-* mycd - Change the current working directory
-* @env: Pointer to the environment structure
-* Return: 0 on success, non-zero on failure
-*/
+ * mycd - Change the current working directory
+ * @env: Pointer to the environment structure
+ * Return: 0 on success, non-zero on failure
+ */
 int mycd(env_t *env)
-{
-	char *curenv, *homedir, buffer[BUF_SIZE], *cderr;
+{ /* clang-format off */
+	char *curenv, *homedir, buffer[BUF_SIZE], *cderr = create_cd_error(env);
 	int chd;
 
 	curenv = getcwd(buffer, BUF_SIZE);
@@ -22,11 +22,9 @@ int mycd(env_t *env)
 			if (homedir)
 				chd = chdir(homedir);
 			else
-				chd = chdir("/");
-		}
+				chd = chdir("/"); }
 		else
-			chd = chdir(homedir);
-	}
+			chd = chdir(homedir); }
 	else if (_strcmp(env->token_arr[1], "-") == 0)
 	{
 		homedir = _getenvvar(env, "OLDPWD=");
@@ -34,31 +32,23 @@ int mycd(env_t *env)
 		{
 			_puts(curenv);
 			_puts("\n");
-			return (1);
-		}
-		else
-		{
-			_puts(homedir);
-			_puts("\n");
-			chd = chdir(homedir);
-		}
-	}
+		return (1); }
+		_puts(homedir);
+		_puts("\n");
+		chd = chdir(homedir); }
 	else
 		chd = chdir(env->token_arr[1]);
-	cderr = malloc(2 + _strlen("can't cd to ") + _strlen(env->token_arr[1]));
-	if (!cderr)
-		return (-1);
-	_strcpy("can't cd to \0", cderr);
-	_strcat(cderr, env->token_arr[1]);
 	if (chd == -1)
-		 exit_error(env->argv[0], 1, "cd", cderr, 2, NULL, env);
+		exit_error(env->argv[0], 1, "cd", cderr, 2, NULL, env);
 	else
 	{
 		_setenvvar(env, "OLDPWD=", _getenvvar(env, "PWD="));
-		_setenvvar(env, "PWD=", getcwd(buffer, 1024));
-	}
+		_setenvvar(env, "PWD=", getcwd(buffer, 1024)); }
+	free(cderr);
 	return (1);
 }
+
+
 /**
  * builtin_exit - builtin exit function
  * @env: environment
@@ -82,8 +72,8 @@ int builtin_exit(env_t *env)
 
 		if (isnumerical(s[1]) == -1)
 		{
-			freeall(env);
 			exit_error(env->argv[0], 1, "exit", "Illegal number", 2, s[1], env);
+			freeall(env);
 			exit(2);
 		}
 		exitcode = custom_atoi(s[1]);
@@ -100,7 +90,6 @@ int builtin_exit(env_t *env)
 		}
 		else
 		{
-			freeall(env);
 			exit_error(env->argv[0], 1, "exit", "Illegal number", 2, s[1], env);
 		}
 	}

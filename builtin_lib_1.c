@@ -2,11 +2,11 @@
 #include "hsh.h"
 
 /**
-* _getenvvar - Retrieve the value of an environment variable
-* @env: Pointer to the environment structure
-* @name: Name of the variable to retrieve
-* Return: Pointer to the variable's value or NULL if not found
-*/
+ * _getenvvar - Retrieve the value of an environment variable
+ * @env: Pointer to the environment structure
+ * @name: Name of the variable to retrieve
+ * Return: Pointer to the variable's value or NULL if not found
+ */
 char *_getenvvar(env_t *env, char *name)
 {
 	char *found;
@@ -22,11 +22,11 @@ char *_getenvvar(env_t *env, char *name)
 	return (NULL);
 }
 /**
-* _getenvvarnode - Retrieve the value of an environment variable
-* @env: Pointer to the environment structure
-* @name: Name of the variable to retrieve
-* Return: Pointer to the variable's value or NULL if not found
-*/
+ * _getenvvarnode - Retrieve the value of an environment variable
+ * @env: Pointer to the environment structure
+ * @name: Name of the variable to retrieve
+ * Return: Pointer to the variable's value or NULL if not found
+ */
 list_t *_getenvvarnode(env_t *env, char *name)
 {
 	char *found;
@@ -64,4 +64,20 @@ int _setenvvar(env_t *env, char *name, char *val)
 	free(node->str);
 	node->str = newstr;
 	return (1);
+}
+
+/**
+ * create_cd_error - Creates a cd error message
+ * @env: Pointer to the environment structure
+ * Return: Pointer to the error message
+ */
+char *create_cd_error(env_t *env)
+{
+	char *cderr =
+			malloc(2 + _strlen("can't cd to ") + _strlen(env->token_arr[1]));
+	if (!cderr)
+		return (NULL);
+	_strcpy("can't cd to \0", cderr);
+	_strcat(cderr, env->token_arr[1]);
+	return (cderr);
 }
