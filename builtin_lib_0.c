@@ -51,13 +51,11 @@ int mycd(env_t *env)
 	_strcpy("can't cd to \0", cderr);
 	_strcat(cderr, env->token_arr[1]);
 	if (chd == -1)
-	{
-		 exit_error(env->argv[0], 1, "cd", cderr, 2, NULL,env);
-	}
+		 exit_error(env->argv[0], 1, "cd", cderr, 2, NULL, env);
 	else
 	{
 		_setenvvar(env, "OLDPWD=", _getenvvar(env, "PWD="));
-		_setenvvar(env, "PWD=", getcwd(buffer,1024));
+		_setenvvar(env, "PWD=", getcwd(buffer, 1024));
 	}
 	return (1);
 }
@@ -78,29 +76,31 @@ int builtin_exit(env_t *env)
 	{
 		if (s[1] == NULL)
 		{
-			list_free(&(env->env_list));
+			freeall(env);
 			exit(env->last_exit_status);
 		}
 
 		if (isnumerical(s[1]) == -1)
 		{
+			freeall(env);
 			exit_error(env->argv[0], 1, "exit", "Illegal number", 2, s[1], env);
 			exit(2);
 		}
 		exitcode = custom_atoi(s[1]);
 		if (exitcode >= 0 && exitcode <= 255)
 		{
-			list_free(&(env->env_list));
+			freeall(env);
 			exit(exitcode);
 		}
 		else if (exitcode > 255)
 		{
 			exitcode %= 256;
-			list_free(&(env->env_list));
+			freeall(env);
 			exit(exitcode);
 		}
 		else
 		{
+			freeall(env);
 			exit_error(env->argv[0], 1, "exit", "Illegal number", 2, s[1], env);
 		}
 	}

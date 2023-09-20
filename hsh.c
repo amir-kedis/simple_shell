@@ -21,6 +21,7 @@ void hsh(env_t *env)
 		if (isatty(STDIN_FILENO))
 			_puts(PROMPT);
 		read_count = custom_getline(&line, &len, stdin);
+		env->line = line;
 		if (read_count != -1)
 		{
 			word = _strtok(line, DILIM);
@@ -52,7 +53,7 @@ void hsh(env_t *env)
 
 int main(int argc, char **argv, char **env)
 {
-	env_t _env = {NULL, NULL, NULL, -1, NULL, 0, NULL};
+	env_t _env = {NULL, NULL, NULL, -1, NULL, 0, NULL, NULL};
 
 	_env.argv = argv;
 	_env.env = env;

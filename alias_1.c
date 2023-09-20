@@ -5,15 +5,21 @@
  * initAliasList - Initializes an alias list.
  * @aliasList: Pointer to the AliasList structure to initialize.
  */
-void initAliasList(AliasList **aliasList) 
+void initAliasList(AliasList **aliasList)
 {
 	*aliasList = malloc(sizeof(AliasList));
 	if (!*aliasList)
-		return;	
+		return;
 	(*aliasList)->aliases = NULL;
 	(*aliasList)->count = 0;
 }
-char * excualias(env_t *env, char *cmd)
+/**
+* excualias - Execute a command or expand an alias.
+* @env: Pointer to the shell's environment.
+* @cmd: Command to execute or alias to expand.
+* Return: Expanded command or NULL on failure.
+*/
+char *excualias(env_t *env, char *cmd)
 {
 	int i;
 	AliasList *al;
@@ -31,4 +37,3 @@ char * excualias(env_t *env, char *cmd)
 	}
 	return (NULL);
 }
-

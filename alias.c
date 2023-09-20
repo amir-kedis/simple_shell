@@ -12,6 +12,8 @@ int addAlias(AliasList *aliasList, char *name, char *command)
 {
 	Alias *newAlias;
 	int i;
+	size_t size;
+
 	if (!aliasList)
 		initAliasList(&aliasList);
 
@@ -26,7 +28,8 @@ int addAlias(AliasList *aliasList, char *name, char *command)
 			command = aliasList->aliases[i].command;
 	}
 	aliasList->count++;
-	aliasList->aliases = realloc(aliasList->aliases, sizeof(Alias) * aliasList->count);
+	size = sizeof(Alias) * aliasList->count;
+	aliasList->aliases = realloc(aliasList->aliases, size);
 	if (!aliasList->aliases)
 	{
 		perror("Memory allocation error");
@@ -57,9 +60,17 @@ void cleanupAliases(AliasList *aliasList)
 	}
 	free(aliasList->aliases);
 }
+/**
+* printalias - Print all aliases from an AliasList.
+* @aliaslist: Pointer to the AliasList containing aliases.
+*
+* This function prints all aliases stored in the provided AliasList @aliaslist.
+* It displays each alias's name and corresponding command.
+*/
 void printalias(AliasList *aliaslist)
 {
 	int i;
+
 	if (aliaslist)
 	{
 		for (i = 0; i < aliaslist->count; i++)
@@ -71,24 +82,39 @@ void printalias(AliasList *aliaslist)
 		}
 	}
 }
+/**
+* printaliasesbyname - Print aliases by name.
+* @aliaslist: AliasList containing aliases.
+* @name: The name of the aliases to print.
+*/
 void printaliasesbyname(AliasList *aliaslist, char *name)
 {
 	int i;
+
 	for (i = 0; i < aliaslist->count; i++)
 	{
 		if (_strcmp(aliaslist->aliases[i].name, name) == 0)
 		{
 			_puts(aliaslist->aliases[i].name);
-                	_puts("='");
-                	_puts(aliaslist->aliases[i].command);
-                	_puts("'\n");
+			_puts("='");
+			_puts(aliaslist->aliases[i].command);
+			_puts("'\n");
 		}
 	}
 }
+/**
+* myalias - Display or set shell aliases.
+* @env: Pointer to the shell's environment.
+*
+* This function allows users to manage shell aliases. It can display
+* existing aliases or set new ones. Returns 1 on success, -1 on failure.
+* Return: integer on failure 0
+*/
 int myalias(env_t *env)
 {
 	int i;
 	char *p;
+
 	if (!env->token_arr[1])
 	{
 		printalias(env->aliaslist);
@@ -102,7 +128,7 @@ int myalias(env_t *env)
 			if (p)
 			{
 				*p = '\0';
-				addAlias(env->aliaslist, env->token_arr[i],p + 1);
+				addAlias(env->aliaslist, env->token_arr[i], p + 1);
 			}
 			else
 				printaliasesbyname(env->aliaslist, env->token_arr[i]);

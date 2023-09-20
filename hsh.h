@@ -89,6 +89,7 @@ typedef struct environment
 	char **token_arr;
 	int last_exit_status;
 	AliasList *aliaslist;
+	char *line;
 	/* NOTE: add more members as needed */
 } env_t;
 
@@ -150,6 +151,7 @@ int mycd(env_t *env);
 char *_getenvvar(env_t *env, char *name);
 list_t *_getenvvarnode(env_t *env, char *name); 
 int _setenvvar(env_t *env, char *name, char *val);
+void freeall(env_t *env);
 /* Reading from files functions */
 size_t custom_getline(char **line, size_t *startlen, FILE *f);
 char *get_path(char *command, char **env);

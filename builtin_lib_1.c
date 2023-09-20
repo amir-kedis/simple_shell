@@ -29,17 +29,17 @@ char *_getenvvar(env_t *env, char *name)
 */
 list_t *_getenvvarnode(env_t *env, char *name)
 {
-        char *found;
-        list_t *node = env->env_list;
+	char *found;
+	list_t *node = env->env_list;
 
-        while (node)
-        {
-                found = starts_with(node->str, name);
-                if (found && *found)
-                        return (node);
-                node = node->next;
-        }
-        return (NULL);
+	while (node)
+	{
+		found = starts_with(node->str, name);
+		if (found && *found)
+			return (node);
+		node = node->next;
+	}
+	return (NULL);
 }
 /**
  * _setenvvar - Set or update an environment variable
