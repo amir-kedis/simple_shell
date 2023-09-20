@@ -61,7 +61,7 @@ void hsh(env_t *env)
 
 int main(int argc, char **argv, char **env)
 {
-	env_t _env = {NULL, NULL, NULL, -1, NULL, 0, 0};
+	env_t _env = {NULL, NULL, NULL, -1, NULL, 0, 0, NULL};
 
 	_env.argv = argv;
 	_env.env = env;

@@ -12,6 +12,5 @@ void freeall(env_t *env)
 	if (env->aliaslist)
 		cleanupAliases(env->aliaslist);
 	free(env->aliaslist);
-	free(env->line);
 }
 

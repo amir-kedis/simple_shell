@@ -130,6 +130,7 @@ char **_str_to_word_array(char *str, char *delim)
 	array[i] = NULL;
 
 	return (array);
+}
 /**
  *starts_with - finds if string starts with starting
  * @string: big string
